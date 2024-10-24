@@ -9,7 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "cors": "^2.8.5",
+=======
+>>>>>>> 52c82abf7d8b8ce800159716b165d8757e227913
     "express": "^4.21.1",
     "firebase-admin": "^12.7.0"
   }
