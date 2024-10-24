@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 const express = require('express');
 const admin = require('firebase-admin');
 const { getAuth } = require('firebase-admin/auth');
 const { checkAuthConnection } = require('./authutilities');
+const { generateCode } = require('./utils/generateCode')
 
 const app = express();
 const port = 3000;
@@ -10,19 +10,10 @@ const port = 3000;
 app.use(express.json()); // Middleware to parse JSON bodies
 
 // Route to test the connection
-=======
-const express = require('express') 
-const app = express() 
-const port = 3000 
-
-const { generateCode } = require('./utils/generateCode')
-
->>>>>>> 52c82abf7d8b8ce800159716b165d8757e227913
 app.get('/test', (req, res) => {
     res.send('Hello A2222!!!!!!');
 });
 
-<<<<<<< HEAD
 // Create 6-digit code
 app.get('/getCode', (req, res) => {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -77,17 +68,6 @@ app.delete('/deleteUser', async (req, res) => {
 
 
 // Start the server
-=======
-
-
-//create 6 digit code 
-app.get('/getCode', (req, res) => {
-    code = generateCode() 
-    res.send(code)
-})
-
-
->>>>>>> 52c82abf7d8b8ce800159716b165d8757e227913
 app.listen(port, () => {
     console.log(`App running listening on port ${port}`);
 });
