@@ -66,5 +66,3 @@ async function deleteLobby(lobbyId) {
         console.error('Error deleting ${lobbyId}:', error)
     }
 }
-
-deleteLobby('j2is1l')
