@@ -23,4 +23,4 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@18.117.87.87  "cd A2ChatBackend && git pull origin main"
+          ssh -o StrictHostKeyChecking=no ubuntu@18.117.87.87  "cd A2ChatBackend && && npm i && git pull origin main"
