@@ -9,8 +9,8 @@ const port = 3000;
 
 app.use(express.json()); // Middleware to parse JSON bodies
 
-app.get('/', (res, req) => {
-    res.send('GET THE DRUGGGSSS')
+app.get('/', (req, res) => {
+    res.send("GET THE DRUGGGSSS")
 })
 
 // Route to test the connection
