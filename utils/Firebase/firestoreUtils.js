@@ -1,9 +1,9 @@
 
-const { generateCode } = require('../utils/generateCode')
+const { generateCode } = require('../misc/generateCode')
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("../google-services.json");
+var serviceAccount = require("../../google-services.json");
 const { getFirestore } = require("firebase-admin/firestore");
 
 admin.initializeApp({

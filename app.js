@@ -1,8 +1,8 @@
 const express = require('express');
 const admin = require('firebase-admin');
 const { getAuth } = require('firebase-admin/auth');
-const { checkAuthConnection } = require('./Firebase/authUtils');
-const { generateCode } = require('./utils/generateCode')
+const { checkAuthConnection } = require('./utils/Firebase/authUtils');
+const { generateCode } = require('./utils/misc/generateCode')
 
 const app = express();
 const port = 3000;
@@ -10,7 +10,7 @@ const port = 3000;
 app.use(express.json()); // Middleware to parse JSON bodies
 
 app.get('/', (req, res) => {
-    res.send("GET THE DRUGGGSSS ALEXXXXX")
+    res.send("A2 Server is up!")
 })
 
 // Route to test the connection
@@ -20,15 +20,14 @@ app.get('/test', (req, res) => {
 
 // Create 6-digit code
 app.get('/getCode', (req, res) => {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let code = Array.from({ length: 6 }, () => chars.charAt(Math.floor(Math.random() * chars.length)));
+    let code = generateCode() 
     
     console.log(code); 
     res.json(code);
 });
 
 // Route to check Firebase Auth connection
-app.get('/authCreateConnection', async (req, res) => {
+app.get('/auth/CheckConnection', async (req, res) => {
     const result = await checkAuthConnection();
 
     if (result.success) {
@@ -48,7 +47,7 @@ app.get('/authCreateConnection', async (req, res) => {
 });
 
 // Endpoint to delete a user
-app.delete('/deleteUser', async (req, res) => {
+app.delete('/auth/deleteUser', async (req, res) => {
     const { uid } = req.body;
 
     if (!uid) {
