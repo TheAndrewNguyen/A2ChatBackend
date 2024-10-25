@@ -40,9 +40,9 @@ async function createLobby(lobbyCode) {
     try {
         let lobbies =  db.collection('lobbies')
         await lobbies.doc(lobbyCode).set(documentSchema(lobbyCode))
-        console.log("lobby created succesfully")
+        console.log("lobby created succesfully with join code ${lobbyCode}")
     } catch(error) {
-        console.error("Error while creatting lobby:", error)
+        console.error("Error while creating lobby:", error)
     }
 }
 
