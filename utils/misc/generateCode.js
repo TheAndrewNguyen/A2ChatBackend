@@ -8,7 +8,7 @@ function generateCode() {
     let code = ""
     
     for(let i = 0; i < 6; i++) {
-        let randomNum = Math.floor(Math.random() * 35)
+        let randomNum = Math.floor(Math.random() * 10)
         let random_char = chars[randomNum]
         code += random_char
     }
