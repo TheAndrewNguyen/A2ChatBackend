@@ -5,6 +5,8 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
 });
 
+//returns the first 10 users if firebase is working 
+//if no users show up then firebase is not working 
 const checkAuthConnection = async () => {
     try {
         const auth = admin.auth();
