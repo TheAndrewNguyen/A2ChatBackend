@@ -1,15 +1,6 @@
 
-const { generateCode } = require('../misc/generateCode')
-
-var admin = require("firebase-admin");
-
-var serviceAccount = require("../../google-services.json");
+const admin = require('../../configs/firebaseConfig')
 const { getFirestore } = require("firebase-admin/firestore");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-
 
 let db; //global variable to connection to DB 
 connectToFireStore() 
@@ -68,3 +59,5 @@ async function deleteLobby(lobbyId) {
         console.error('Error deleting ${lobbyId}:', error)
     }
 }
+
+module.exports = { createLobby, deleteLobby }
