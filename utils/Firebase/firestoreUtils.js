@@ -1,9 +1,9 @@
 
-const { generateCode } = require('./utils/generateCode')
+const { generateCode } = require('../misc/generateCode')
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./google-services.json");
+var serviceAccount = require("../../google-services.json");
 const { getFirestore } = require("firebase-admin/firestore");
 
 admin.initializeApp({
@@ -14,6 +14,7 @@ admin.initializeApp({
 let db; //global variable to connection to DB 
 connectToFireStore() 
 
+//connects to firestore 
 async function connectToFireStore() {
     console.log("Attemping to connect to Firestore...")
     try {
@@ -24,7 +25,7 @@ async function connectToFireStore() {
     } 
 }
 
-
+//Schema for firestore document 
 function documentSchema(lobbyCode) {
     console.warn("FireStore", "Test schema ran")
     
@@ -39,6 +40,7 @@ function documentSchema(lobbyCode) {
     return test;
 }
 
+//creating a document in firestore 
 async function createLobby(lobbyCode) {
     if(!db) {
         console.error("Firestore instance is not initialized")
@@ -53,7 +55,7 @@ async function createLobby(lobbyCode) {
     }
 }
 
-
+//deleting a lobby in firestore
 async function deleteLobby(lobbyId) {
     console.log('Attemping to deleteLobby: {lobbyId}')
 
