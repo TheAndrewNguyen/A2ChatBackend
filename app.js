@@ -1,7 +1,7 @@
 const express = require('express');
 const admin = require('firebase-admin');
 const { getAuth } = require('firebase-admin/auth');
-const { checkAuthConnection } = require('./authutilities');
+const { checkAuthConnection } = require('./Firebase/authUtils');
 const { generateCode } = require('./utils/generateCode')
 
 const app = express();
