@@ -1,6 +1,5 @@
-const express = require('express');
-const { generateCode } = require('./utils/misc/generateCode')
 
+const express = require('express');
 const app = express();
 const port = 3000;
 

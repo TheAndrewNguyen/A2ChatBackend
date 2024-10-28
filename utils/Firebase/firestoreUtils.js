@@ -1,5 +1,4 @@
 
-const admin = require('../../configs/firebaseConfig')
 const { getFirestore } = require("firebase-admin/firestore");
 
 let db; //global variable to connection to DB 

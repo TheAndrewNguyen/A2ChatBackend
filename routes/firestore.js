@@ -9,7 +9,6 @@ const router = express.Router();
 router.get('/createLobby', (req, res) =>{
     let code = generateCode() 
     createLobby(code) //creates a lobby with the join code 
-    
     res.send(code)
 })
 

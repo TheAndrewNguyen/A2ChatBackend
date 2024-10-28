@@ -35,7 +35,7 @@ router.delete('/deleteUser', async (req, res) => {
         return res.status(400).json({ message: 'UID is required.' }); // Check for UID
     }
 
-    console.log('Attempting to delete user: ${uid} called')
+    console.log('Attempting to delete user:', uid, ' called')
 
     try {
         await admin.auth().deleteUser(uid); // Using admin.auth() directly
