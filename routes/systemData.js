@@ -20,7 +20,7 @@ router.get('/getData', async (req, res) => {
 router.get('/logs', (req, res) => {
     let filePath = path.join(__dirname, '/home/ubuntu/.pm2/logs/app-out.log')
     fs.readFile(filePath, 'utf-8', (data) =>{
-        res.setHeader('LogFile', 'text/plain')
+        res.setHeader('Content-Type', 'text/plain')
         res.send(data)
     })
 })
