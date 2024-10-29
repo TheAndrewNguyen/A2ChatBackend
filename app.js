@@ -14,15 +14,19 @@ app.use(express.json()); // Middleware to parse JSON bodies
 const authRouter = require('./routes/auth.js')
 const test = require('./routes/test.js')
 const firestore = require('./routes/firestore.js')
+const systemData = require('./routes/systemData.js')
 
 //use the routers 
 app.use('/auth', authRouter)
 app.use('/test', test)
 app.use('/firestore', firestore)
+app.use('/systemData', systemData)
 
 //root page 
-app.get('/', (req, res) => {
-    res.render('index', getData())
+app.get('/', async(req, res) => {
+    let data = await getData()
+    console.log(data)
+    res.render('index', data)
 })
 
 // Start the server
