@@ -47,15 +47,16 @@ async function createLobby(lobbyCode) {
 
 //deleting a lobby in firestore
 async function deleteLobby(lobbyId) {
-    console.log('Attemping to deleteLobby: {lobbyId}')
-
+    console.log(`Attemping to deleteLobby: {lobbyId}`)
+    
     try {
         let lobbies = db.collection('lobbies')
         let document = lobbies.doc(lobbyId)
-        document.delete()
-        console.log('Lobby: ${lobbyId} deleted succesfully') 
+        await document.delete()
+        
+        return {success: true, message: `Lobby: ${lobbyId} deleted succesfully`}
     } catch(error) {
-        console.error('Error deleting ${lobbyId}:', error)
+        return {success: false, message: `Error deleting ${lobbyId}:, ${error}`}
     }
 }
 
