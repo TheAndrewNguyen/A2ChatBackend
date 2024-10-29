@@ -1,14 +1,13 @@
 
+//server set up
 const express = require('express');
 const app = express();
 const port = 3000;
 
+//sets and use 
+app.set('view engine', 'ejs')
+app.set('views', './views')
 app.use(express.json()); // Middleware to parse JSON bodies
-
-app.get('/', (req, res) => {
-    res.send("A2 Server is up!")
-})
-
 
 //importing route files 
 const authRouter = require('./routes/auth.js')
@@ -20,6 +19,10 @@ app.use('/auth', authRouter)
 app.use('/test', test)
 app.use('/firestore', firestore)
 
+//root page 
+app.get('/', (req, res) => {
+    res.render('index')
+})
 
 // Start the server
 app.listen(port, () => {
