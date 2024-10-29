@@ -18,7 +18,7 @@ router.get('/getData', async (req, res) => {
 
 //reads log files
 router.get('/logs', (req, res) => {
-    let filePath = path.join(__dirname, '/home/ubuntu/.pm2/logs/app-out.log')
+    let filePath = path.join('/home/ubuntu/.pm2/logs/app-out.log')
     fs.readFile(filePath, 'utf-8', (err, data) =>{
         if(err) {
             console.error('Error reading log file:', err);
