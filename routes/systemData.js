@@ -21,7 +21,7 @@ router.get('/logs', (req, res) => {
     let filePath = path.join(__dirname, '/home/ubuntu/.pm2/logs/app-out.log')
     fs.readFile(filePath, 'utf-8', (data) =>{
         res.setHeader('LogFile', 'text/plain')
-        res.send(<pre>${data}</pre>)
+        res.send(data)
     })
 })
 
