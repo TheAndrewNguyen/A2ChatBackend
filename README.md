@@ -9,7 +9,7 @@
 `node app.js`   
 
 ## link to server and logs 
-[https://a2chat.mooo.com/](url)
+[https://a2chat.mooo.com/](https://a2chat.mooo.com/)
 
 ### misc 
 ssh -i "a2keyPair.pem" ubuntu@ec2-18-117-87-87.us-east-2.compute.amazonaws.com
