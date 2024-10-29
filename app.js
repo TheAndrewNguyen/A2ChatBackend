@@ -1,4 +1,4 @@
-const { getData } = require('./utils/misc/os.js')
+const { getData } = require('./utils/misc/monitoringInterface.js')
 
 //server set up
 const express = require('express');
