@@ -1,8 +1,12 @@
 ﻿# A2ChatBackend
-<br> to run: </br> 
-<br> npm install </br> 
-<br> node app.js </br>  
-<br> running on: http://ec2-18-117-87-87.us-east-2.compute.amazonaws.com:3000 </br> 
-test it: http://ec2-18-117-87-87.us-east-2.compute.amazonaws.com:3000/getCode/
+## set up IDE 
+1. fork the repo
+2. run the command `npm i` //download dependencies
+3. put a google-json file in root
+4. make sure to have a .gitignore file for node modules and your google-json file
 
+## to run
+`node app.js`   
+
+### misc 
 ssh -i "a2keyPair.pem" ubuntu@ec2-18-117-87-87.us-east-2.compute.amazonaws.com
