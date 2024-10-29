@@ -1,3 +1,4 @@
+const { getData } = require('./utils/misc/os.js')
 
 //server set up
 const express = require('express');
@@ -21,7 +22,7 @@ app.use('/firestore', firestore)
 
 //root page 
 app.get('/', (req, res) => {
-    res.render('index')
+    res.render('index', getData())
 })
 
 // Start the server
