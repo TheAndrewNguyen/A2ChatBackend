@@ -25,19 +25,18 @@ function osUptime() {
     return upTimeToString
 }
 
-function cpuStats() {
-    
-}
-
 function memoryStats() {
     let freemem = os.freemem() 
     let totalmem = os.totalmem() 
 
-    let memoryPercentage = freemem / totalmem * 100
+    let memoryPercentage = (totalmem - freemem) / totalmem * 100
     memoryPercentage = memoryPercentage.toFixed(2) 
 
-    let freememGb = freemem / (1024 * 1024 * 1024)
+    let freememGb = freemem / (1024 ** 3)
     freememGb = freememGb.toFixed(2) 
+
+    console.log(totalmem / (1024 **3))
+    console.log(freemem / (1024 ** 3))
     return `Percent memory currently using: ${memoryPercentage}% (free memory: ${freememGb}gb)`
 }
 
