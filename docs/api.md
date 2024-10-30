@@ -50,8 +50,9 @@ Api call to delete a user
 ```
 Delete /auth/deleteUser
 Host: https://a2chat.mooo.com
-
-Json body: 
+```
+Json Body: 
+```json
 {
     "uid": "9y2HD7dGCefNo323OduwdXVxuOs1"
 }
