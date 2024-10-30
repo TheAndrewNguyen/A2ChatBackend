@@ -7,9 +7,9 @@ https://a2chat.mooo.com
 ---
 ## Firebase Authentication Endpoints 
 ### 1. Get current users 
-Api call that gets current users in  auth database
-**Endpoint:** `/auth/checkConnection`
-**Method:** `GET`
+Api call that gets current users in  auth database <br>
+**Endpoint:** `/auth/checkConnection` <br> 
+**Method:** `GET` <br> 
 
 **Example request:**
 ```
@@ -32,9 +32,9 @@ Host: https://a2chat.mooo.com
 }
 ```
 ### 2. Delete User 
-Api call to delete a user
-**Endpoint:** `/auth/deleteUser`
-**Method:** `DELETE`
+Api call to delete a user  <br> 
+**Endpoint:** `/auth/deleteUser` <br>  
+**Method:** `DELETE`<br>
 
 **Parameters:**
 | Parameter       | Type            | Required        | Description  |
@@ -43,6 +43,8 @@ Api call to delete a user
 
 **Example request:**
 ```
+Delete /auth/deleteUser
+Host: https://a2chat.mooo.com
 
 Json body: 
 {
