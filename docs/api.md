@@ -8,8 +8,10 @@ https://a2chat.mooo.com
 ## Firebase Authentication Endpoints 
 ### 1. Get current users 
 Api call that gets current users in  auth database <br>
-**Endpoint:** `/auth/checkConnection` <br> 
-**Method:** `GET` <br> 
+
+**Endpoint:** `/auth/checkConnection`  
+
+**Method:** `GET`  
 
 **Example request:**
 ```
