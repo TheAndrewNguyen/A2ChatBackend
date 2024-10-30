@@ -59,13 +59,13 @@ Json Body:
 ```
 
 **Example response (If successful)**: 
-```
+```json
 {
     "message": "Sucessfully deleted user: 9y2HD7dGCefNo323OduwdXVxuOs1"
 }
 ```
 **Example response (If not successful)**: 
-```
+```json
 {
     "message": "Error deleting user",
     "error": "There is no user record corresponding to the provided identifier."
