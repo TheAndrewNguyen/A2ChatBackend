@@ -32,9 +32,9 @@ Host: https://a2chat.mooo.com
 }
 ```
 ### 2. Delete User 
-Api call to delete a user  <br> 
+Api call to delete a user <br> 
 **Endpoint:** `/auth/deleteUser` <br>  
-**Method:** `DELETE`<br>
+**Method:** `DELETE` <br>
 
 **Parameters:**
 | Parameter       | Type            | Required        | Description  |
