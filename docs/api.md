@@ -1,7 +1,7 @@
 # A2Chat API documentation 
 The A2Chat API offers a range of endpoints for authentication, data storage, and developer tools, designed to support both end users and development teams.
 ## Base url 
-```http
+```
 https://a2chat.mooo.com
 ```
 ---
@@ -19,7 +19,7 @@ GET /auth/checkConnnection
 Host: https://a2chat.mooo.com
 ```
 **Example response**: 
-```
+```json
 {
     "message": "Firebase Authentication is connected!",
     "userCount": 10,
