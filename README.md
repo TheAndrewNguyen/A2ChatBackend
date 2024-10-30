@@ -8,6 +8,9 @@
 ## to run
 `node app.js`   
 
+## Docs: 
+[Docs](docs/)
+
 ## link to server and logs 
 [https://a2chat.mooo.com/](https://a2chat.mooo.com/)
 
