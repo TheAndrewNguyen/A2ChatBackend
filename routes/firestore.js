@@ -6,10 +6,15 @@ const express = require('express')
 const router = express.Router();
 
 //creates firestore documenet returns the join code to the user
-router.get('/createLobby', (req, res) =>{
+router.post('/createLobby', (req, res) =>{
     let code = generateCode() 
-    createLobby(code) //creates a lobby with the join code 
-    res.send(code)
+    createLobby(code) //creates a lobby with the join code
+        .then(() => {
+            res.status(201).send( {code} )
+        }) 
+        .catch(error => {
+            res.status(500).send({ error: `Failed to create lobby error: ${error}`})
+        })
 })
 
 router.delete('/deleteLobby', async (req, res) => {

@@ -7,7 +7,7 @@ https://a2chat.mooo.com
 ---
 ## Firebase Authentication Endpoints 
 ### 1. Get current users 
-Api call that gets current users in  auth database <br>
+Api call that gets current users in  auth database 
 
 **Endpoint:** `/auth/checkConnection`  
 
@@ -72,50 +72,54 @@ Json Body:
 }
 ```
 ---
+## FireStore Endpoints
+### 1. Create Lobby  
+Generates Lobby code and creates firestore document for the lobby.  Sends lobby code back. 
 
+**Endpoint:** `/firestore/createLobby`
 
+**Method:** `POST`
 
+**Parameters:** None 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-### 1. template 
-Description
-**Endpoint:** `/template/template`
-**Method:** `template`
-**Parameters:**
-| Parameter       | Type            | Required        | Description  |
-|-----------------|-----------------|-----------------|--------------|
-| Row 1, Cell 1   | Row 1, Cell 2   | Row 1, Cell 3   |              |
-| Row 2, Cell 1   | Row 2, Cell 2   | Row 2, Cell 3   |              |
 **Example request:**
 ```
-template
-template 
+POST /firestore/createLobby 
+Host: https://a2chat.mooo.com 
 ```
+
 **Example response**: 
 ```
 {
 template 
 template 
 ```
----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
