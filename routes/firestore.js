@@ -44,7 +44,7 @@ router.delete('/deleteLobby', async (req, res) => {
 router.put('/addUserToLobby', async(req, res) => {
     const { lobbyID, UID } = req.body
     try {
-        const result = await addUserToLobby(lobbyId, UID)
+        const result = await addUserToLobby(lobbyID, UID)
 
         if(result.success) {
             return res.status(200).json({message : result.message})
