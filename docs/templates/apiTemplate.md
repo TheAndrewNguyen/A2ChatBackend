@@ -19,13 +19,11 @@ template
 ```
 **Example response (If succesful)**: 
 ```
-{
 template 
 template 
 ```
 **Example response (If failed)**: 
 ```
-{
 template 
 template 
 ```
