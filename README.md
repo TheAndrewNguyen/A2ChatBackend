@@ -8,11 +8,11 @@
 ## to run
 `node app.js`   
 
-## Docs: 
-[Docs](docs/)
+## Docs: [Docs](docs/)
 
 ## link to server and logs 
-[https://a2chat.mooo.com/](https://a2chat.mooo.com/)
-
+(Server Stats)[https://a2chat.mooo.com/](https://a2chat.mooo.com/)
+[logs](https://a2chat.mooo.com/systemdata/log)
+[Error logs](https://a2chat.mooo.com/systemdata/errorlog)
 ### misc 
 ssh -i "a2keyPair.pem" ubuntu@ec2-18-117-87-87.us-east-2.compute.amazonaws.com
