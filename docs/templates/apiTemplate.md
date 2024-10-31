@@ -11,12 +11,19 @@ Description
 |-----------------|-----------------|-----------------|--------------|
 | Row 1, Cell 1   | Row 1, Cell 2   | Row 1, Cell 3   |              |
 | Row 2, Cell 1   | Row 2, Cell 2   | Row 2, Cell 3   |              |
+
 **Example request:**
 ```
 template
 template 
 ```
-**Example response**: 
+**Example response (If succesful)**: 
+```
+{
+template 
+template 
+```
+**Example response (If failed)**: 
 ```
 {
 template 

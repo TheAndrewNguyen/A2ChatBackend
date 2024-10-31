@@ -1,4 +1,4 @@
-
+const admin = require('../../configs/firebaseConfig')
 const { getFirestore } = require("firebase-admin/firestore");
 
 let db; //global variable to connection to DB 
@@ -16,18 +16,14 @@ async function connectToFireStore() {
 }
 
 //Schema for firestore document 
-function documentSchema(lobbyCode) {
-    console.warn("FireStore", "Test schema ran")
-    
-    const currentUser = { uid: "user12345" }
-    
-    const test = {
+function documentSchema(lobbyCode) {    
+    const schema = {
         isActive: true,
         lobbyCode: lobbyCode,
-        users: currentUser ? currentUser.uid : "No user logged in"
+        users: []
     };
 
-    return test;
+    return schema;
 }
 
 //creating a document in firestore 
@@ -39,7 +35,8 @@ async function createLobby(lobbyCode) {
     try {
         let lobbies =  db.collection('lobbies')
         await lobbies.doc(lobbyCode).set(documentSchema(lobbyCode))
-        console.log("lobby created succesfully with join code ${lobbyCode}")
+        console.log(`lobby created succesfully with join code ${lobbyCode}`)
+
     } catch(error) {
         console.error("Error while creating lobby:", error)
     }
@@ -47,17 +44,49 @@ async function createLobby(lobbyCode) {
 
 //deleting a lobby in firestore
 async function deleteLobby(lobbyId) {
-    console.log(`Attemping to deleteLobby: {lobbyId}`)
-    
+    console.log(`Attemping to deleteLobby: ${lobbyId}`)
+        
     try {
         let lobbies = db.collection('lobbies')
         let document = lobbies.doc(lobbyId)
+
+        let documentExists = await document.get() 
+
+        if(!documentExists.exists) {
+            console.error(`document ${LobbyId} does not exist`)
+            return { success: false, message: `Lobby: ${LobbyId} does not exist`}
+        }
+
         await document.delete()
-        
         return {success: true, message: `Lobby: ${lobbyId} deleted succesfully`}
+
     } catch(error) {
-        return {success: false, message: `Error deleting ${lobbyId}:, ${error}`}
+        console.error(`error: ${error}`) 
+        return {success: false, message: `An error occured while deleting ${lobbyId}:, ${error.message}`}
     }
 }
 
-module.exports = { createLobby, deleteLobby }
+async function addUserToLobby(lobbyId, UID) {
+    try {
+        let docRef = db.collection('lobbies').doc(lobbyId)
+        
+        //check if document exists 
+        let snapshot = await docRef.get() 
+        if(!snapshot.exists) {
+            return {success: false, message: `Lobby: ${lobbyId} does not exists`}
+        }
+
+        //add user to the users field of lobby 
+        await docRef.update({
+            users: admin.firestore.FieldValue.arrayUnion(UID)
+        })
+
+        return{success: true, message: `user ${UID} added succesffuly to lobby`}
+        
+    } catch (error) {
+        console.error(error)
+        return {success: false, message: 'An error has occured when trying to delete the lobby'}
+    }
+}
+
+module.exports = { createLobby, deleteLobby, addUserToLobby}
