@@ -1,15 +1,20 @@
 
 const { generateCode } = require('../utils/misc/generateCode')
-const { createLobby, deleteLobby } = require('../utils/Firebase/firestoreUtils')
+const { createLobby, deleteLobby, addUserToLobby} = require('../utils/Firebase/firestoreUtils')
 
 const express = require('express')
 const router = express.Router();
 
 //creates firestore documenet returns the join code to the user
-router.get('/createLobby', (req, res) =>{
+router.post('/createLobby', (req, res) =>{
     let code = generateCode() 
-    createLobby(code) //creates a lobby with the join code 
-    res.send(code)
+    createLobby(code) //creates a lobby with the join code
+        .then(() => {
+            res.status(201).send( {code} )
+        }) 
+        .catch(error => {
+            res.status(500).send({ error: `Failed to create lobby error: ${error}`})
+        })
 })
 
 router.delete('/deleteLobby', async (req, res) => {
@@ -21,17 +26,36 @@ router.delete('/deleteLobby', async (req, res) => {
     }
 
     try {
-        const success = await deleteLobby(lobbyId);
+        const result = await deleteLobby(lobbyId);
 
-        if (success) {
-            return res.status(200).json({ message: 'Lobby deleted successfully' });
+        if (result.success == true) {
+            return res.status(200).json({ message: result.message });
         } else {
-            return res.status(404).json({ message: 'Lobby not found' });
+            return res.status(404).json({ message: result.message });
         }
+
     } catch (error) {
         console.error(error); // Log the error for debugging
         return res.status(500).json({ message: 'An error occurred while deleting the lobby' });
     }
-});
+})
+
+
+router.put('/addUserToLobby', async(req, res) => {
+    const { lobbyId, UID } = req.body
+    try {
+        const result = await addUserToLobby(lobbyId, UID)
+
+        if(result.success) {
+            return res.status(200).json({message : result.message})
+        } else {
+            console.error(result.message)
+            return res.status(404).json({ message : result.message})
+        }
+    } catch(error) {
+        console.error(error) 
+        return res.status(500).json({ message : 'An error occurred while updating the lobby'})
+    }
+})
 
 module.exports = router

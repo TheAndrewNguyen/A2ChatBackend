@@ -1,13 +1,13 @@
 # A2Chat API documentation 
 The A2Chat API offers a range of endpoints for authentication, data storage, and developer tools, designed to support both end users and development teams.
-## Base url 
+## Base url: 
 ```
 https://a2chat.mooo.com
 ```
 ---
 ## Firebase Authentication Endpoints 
 ### 1. Get current users 
-Api call that gets current users in  auth database <br>
+Api call that gets current users in  auth database 
 
 **Endpoint:** `/auth/checkConnection`  
 
@@ -64,7 +64,7 @@ Json Body:
     "message": "Sucessfully deleted user: 9y2HD7dGCefNo323OduwdXVxuOs1"
 }
 ```
-**Example response (If not successful)**: 
+**Example response (If failed)**: 
 ```json
 {
     "message": "Error deleting user",
@@ -72,50 +72,114 @@ Json Body:
 }
 ```
 ---
+## FireStore Endpoints
+### 1. Create Lobby  
+Generates Lobby code and creates firestore document with the lobby code as the document Id.
 
+**Endpoint:** `/firestore/createLobby`
 
+**Method:** `POST`
 
+**Parameters:** None 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-### 1. template 
-Description
-**Endpoint:** `/template/template`
-**Method:** `template`
-**Parameters:**
-| Parameter       | Type            | Required        | Description  |
-|-----------------|-----------------|-----------------|--------------|
-| Row 1, Cell 1   | Row 1, Cell 2   | Row 1, Cell 3   |              |
-| Row 2, Cell 1   | Row 2, Cell 2   | Row 2, Cell 3   |              |
 **Example request:**
 ```
-template
-template 
+POST /firestore/createLobby 
+Host: https://a2chat.mooo.com 
 ```
-**Example response**: 
+
+**Example response (if successful)**: 
+```json
+{
+    "code": "259156"
+} 
+```
+**Example firestore document created:**
+```json
+{
+    title: "259156", 
+    isActive : true (boolean),    
+    lobbyCode: "259156" (string),
+    users: [] 
+}
+```
+
+**Example reponse (if failed)**
+```json
+{
+  "error": "Failed to create lobby error: <error message>"
+}
+```
+
+---
+### 2. Delete Lobby 
+Deletes a lobby / deletes the firestore document 
+
+**Endpoint:** `/firestore/deleteLobby`
+
+**Method:** `DELETE`
+
+**Parameters:**
+
+| Parameter       | Type            | Required        | Description  |
+|-----------------|-----------------|-----------------|--------------|
+| LobbyId         | string          | yes             | LobbyId / Document ID |
+
+**Example request:**
+```
+DELETE /firestore/deleteLobby 
+Host: https://a2chat.mooo.com
+```
+Json Body:
+```json
+{
+    "lobbyId": "259156"
+}
+```
+
+**Example response (If succesful)**: 
+```json
+{
+    "message": "Lobby 259156 deleted successfully"
+}
+```
+**Example response (If failed)**: 
 ```
 {
 template 
 template 
 ```
----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
