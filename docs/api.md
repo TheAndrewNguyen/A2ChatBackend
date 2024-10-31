@@ -167,7 +167,7 @@ Host: https://a2chat.mooo.com
 Json Body:
 ```json
 {
-    "lobbyId": "041946", 
+    "lobbyID": "041946", 
     "UID": "TestUser" 
 }
 
