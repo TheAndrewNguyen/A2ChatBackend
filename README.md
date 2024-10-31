@@ -1,5 +1,5 @@
 ﻿# A2ChatBackend
-## set up IDE 
+## Download 
 1. fork the repo
 2. run the command `npm i` //download dependencies
 3. put a google-json file in root
