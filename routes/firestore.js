@@ -42,7 +42,7 @@ router.delete('/deleteLobby', async (req, res) => {
 
 
 router.put('/addUserToLobby', async(req, res) => {
-    const { lobbyId, UID } = req.body
+    const { lobbyID, UID } = req.body
     try {
         const result = await addUserToLobby(lobbyId, UID)
 
