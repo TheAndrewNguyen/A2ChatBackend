@@ -110,8 +110,6 @@ Host: https://a2chat.mooo.com
   "error": "Failed to create lobby error: <error message>"
 }
 ```
-
----
 ### 2. Delete Lobby 
 Deletes a lobby / deletes the firestore document 
 
@@ -147,8 +145,6 @@ Json Body:
 ```
 TBD fixing bug  
 ```
-
----
 ### 3.  Add User to lobby
 Adds user to the corresponding lobby document `User` field 
 
