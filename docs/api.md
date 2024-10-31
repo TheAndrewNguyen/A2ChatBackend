@@ -1,6 +1,6 @@
 # A2Chat API documentation 
 The A2Chat API offers a range of endpoints for authentication, data storage, and developer tools, designed to support both end users and development teams.
-## Base url: 
+### Base url: 
 ```
 https://a2chat.mooo.com
 ```
@@ -95,7 +95,7 @@ Host: https://a2chat.mooo.com
 } 
 ```
 **Example firestore document created:**
-```json
+```
 {
     title: "259156", 
     isActive : true (boolean),    
@@ -145,10 +145,52 @@ Json Body:
 ```
 **Example response (If failed)**: 
 ```
-{
-template 
-template 
+TBD fixing bug  
 ```
+
+---
+### 3.  Add User to lobby
+Adds user to the corresponding lobby document `User` field 
+
+**Endpoint:** `/firestore/addUserToLobby`
+
+**Method:** `PUT`
+
+**Parameters:**
+
+| Parameter       | Type            | Required        | Description  |
+|-----------------|-----------------|-----------------|--------------|
+| LobbyID         | string          | yes             | LobbyId /document title|
+| UID             | string          | yes             | User ID |
+
+**Example request:**
+```
+PUT /firestore/addUserToLobby 
+Host: https://a2chat.mooo.com
+```
+Json Body:
+```json
+{
+    "lobbyId": "041946", 
+    "UID": "TestUser" 
+}
+
+```
+**Example response (If succesful)**: 
+```json
+{
+    "message": "user TestUser added succesffuly to lobby"
+}
+ 
+```
+**Example response (If failed)**: 
+```
+{
+    "message": "Lobby: 43 does not exists"
+}
+```
+
+
 
 
 
