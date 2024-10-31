@@ -85,7 +85,7 @@ async function addUserToLobby(lobbyId, UID) {
         
     } catch (error) {
         console.error(error)
-        return {success: false, message: 'An error has occured when trying to delete the lobby'}
+        return {success: false, message: 'An error has occured when trying to update the lobby'}
     }
 }
 
