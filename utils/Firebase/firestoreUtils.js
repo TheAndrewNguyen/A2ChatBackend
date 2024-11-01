@@ -89,4 +89,25 @@ async function addUserToLobby(lobbyId, UID) {
     }
 }
 
-module.exports = { createLobby, deleteLobby, addUserToLobby}
+async function removeUsersFromLobby(lobbyID) {
+    try {
+        let docRef = db.collection('lobbies').doc(lobbyID)
+        
+        //check if document exists 
+        let snapshot = await docRef.get() 
+        if(!snapshot.exists) {
+            return {success: false, message: `Lobby: ${lobbyID} does not exists`}
+        }
+
+        //logic to remove users in users array from that lobbyid
+        await docRef.update({ users: [] });
+
+        return {success: true, message: `All users from ${lobbyID} removed succesfully to lobby`}
+        
+    } catch (error) {
+        console.error(error)
+        return {success: false, message: 'An error has occured when trying to remove users from lobby'}
+    }
+}
+
+module.exports = { createLobby, deleteLobby, addUserToLobby, removeUsersFromLobby}
