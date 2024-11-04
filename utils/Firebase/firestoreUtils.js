@@ -89,12 +89,14 @@ async function addUserToLobby(lobbyId, UID) {
     }
 }
 
+// TODO: implmeent single user removal and if they are the last user then also delete the lobby 
 async function removeUsersFromLobby(lobbyID) {
     try {
         let docRef = db.collection('lobbies').doc(lobbyID)
         
         //check if document exists 
         let snapshot = await docRef.get() 
+
         if(!snapshot.exists) {
             return {success: false, message: `Lobby: ${lobbyID} does not exists`}
         }
@@ -108,6 +110,32 @@ async function removeUsersFromLobby(lobbyID) {
         console.error(error)
         return {success: false, message: 'An error has occured when trying to remove users from lobby'}
     }
+}
+
+//developer functions
+
+//get all lobby ids and put them inside of a set 
+//returns a set 
+async function getAllLobbies() {
+    
+    const setOfdocumentIds = new Set() 
+
+    const lobbiesRef = db.collection('lobbies')
+    const snapshot = await lobbiesRef.get() 
+    snapshot.forEach(doc => {
+        setOfdocumentIds.add(doc.id)
+    })
+
+    return setOfdocumentIds
+}
+
+//delete all lobbies inside of firestore database 
+async function deleteAllLobbies() {
+    const setOfdocumentIds = await getAllLobbies()
+    for(const item of setOfdocumentIds) {
+        await deleteLobby(item) 
+    }
+    
 }
 
 module.exports = { createLobby, deleteLobby, addUserToLobby, removeUsersFromLobby}
