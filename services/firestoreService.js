@@ -2,6 +2,27 @@
 const { admin, db } = require('../configs/firebaseConfig') 
 const { documentSchema } = require('../models/lobbyModel')
 
+async function checkIfLobbyExists(lobbyID) {
+    try {
+        //get the doc ref 
+        let lobbyDocRef = db.collection('lobbies').doc(lobbyID)
+        let doc = await lobbyDocRef.get() 
+        
+        if(!doc.exists) {
+            console.error(`function checkIfLobbyExists: Lobby ${lobbyID} not found`)
+            return false; 
+        }
+        
+        console.log(`function checkIfLobbyExists: Lobby ${lobbyID} found!`)
+
+        return true
+
+    } catch(error) {
+        console.error(`function checkIfLobbyExists: An error occured while trying to find the lobby: ${error}`)
+        return false
+    }
+}
+
 //creating a document in firestore for lobby 
 async function createLobby(lobbyCode) {
     if(!db) {
@@ -112,8 +133,11 @@ async function removeUserFromLobby(lobbyID, UID) {
     }
 }
 
+
+
 async function test() {
     await createLobby("12455")
+    console.log(checkIfLobbyExists(12455))
     await addUserToLobby("12455", "TEST USER")
     await deleteLobby("12455")
 }
