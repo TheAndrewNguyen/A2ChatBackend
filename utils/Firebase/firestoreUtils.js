@@ -90,18 +90,24 @@ async function addUserToLobby(lobbyId, UID) {
 }
 
 // TODO: implmeent single user removal and if they are the last user then also delete the lobby 
-async function removeUsersFromLobby(lobbyID) {
+async function removeUserFromLobby(lobbyID, UID) {
     try {
         let docRef = db.collection('lobbies').doc(lobbyID)
         
-        //check if document exists 
-        let snapshot = await docRef.get() 
+        let snapshot = await docRef.get() //gets all hhe users in teh lobby 
 
+        //check if lobby exists 
         if(!snapshot.exists) {
             return {success: false, message: `Lobby: ${lobbyID} does not exists`}
         }
+        
+        //get the users portion 
+        const arrayOfUsers = []
+        
+        
+        
+        
 
-        //logic to remove users in users array from that lobbyid
         await docRef.update({ users: [] });
 
         return {success: true, message: `All users from ${lobbyID} removed succesfully to lobby`}
@@ -138,4 +144,4 @@ async function deleteAllLobbies() {
     
 }
 
-module.exports = { createLobby, deleteLobby, addUserToLobby, removeUsersFromLobby}
+module.exports = { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby}
