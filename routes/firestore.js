@@ -1,6 +1,6 @@
 
 const { generateCode } = require('../utils/misc/generateCode')
-const { createLobby, deleteLobby, addUserToLobby, removeUsersFromLobby } = require('../utils/Firebase/firestoreUtils')
+const { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby } = require('../utils/Firebase/firestoreUtils')
 
 const express = require('express')
 const router = express.Router();
@@ -62,7 +62,7 @@ router.delete('/removeUsersFromLobby', async (req, res) => {
     console.log('Request Body:', req.body); // Log the request body for debugging
     const { lobbyID } = req.body;
     try {
-        const result = await removeUsersFromLobby(lobbyID);
+        const result = await removeUserFromLobby(lobbyID);
 
         if (result.success) {
             return res.status(200).json({ message: result.message });
