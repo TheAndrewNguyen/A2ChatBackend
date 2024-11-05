@@ -90,22 +90,41 @@ async function addUserToLobby(lobbyId, UID) {
 }
 
 // TODO: implmeent single user removal and if they are the last user then also delete the lobby 
-async function removeUsersFromLobby(lobbyID) {
+async function removeUsersFromLobby(lobbyID, UID) {
     try {
+        //get the document / lobby 
         let docRef = db.collection('lobbies').doc(lobbyID)
-        
-        //check if document exists 
-        let snapshot = await docRef.get() 
+        let snapshot = await docRef.get()
 
+        //if the document / lobby does not exist 
         if(!snapshot.exists) {
             return {success: false, message: `Lobby: ${lobbyID} does not exists`}
         }
 
-        //logic to remove users in users array from that lobbyid
-        await docRef.update({ users: [] });
-
-        return {success: true, message: `All users from ${lobbyID} removed succesfully to lobby`}
+        //TODO: implement a check for if the user exists 
         
+
+        //get the data from the document 
+        let lobby_data = snapshot.data() 
+        let user_array = lobby_data.users
+        
+        //if the function is called by the last user then delete the document 
+        if(user_array.length == 1) {
+            await deleteLobby(lobbyID)
+            return {success: true, message: `Lobby ${lobbyID} has been removed by the last user`}
+        }
+
+        //else delete the user that called the api 
+        try {
+            await docRef.update({
+                users: admin.firestore.FieldValue.arrayRemove(UID)
+            })
+            return {success: true, message: `User ${UID} has been removed from Lobby: ${lobbyID}`}
+
+        } catch(error) {
+            return {success: false, message: `An error occured when trying to remove the user: ${UID} from Lobby: ${LobbyId} error: ${error}`}
+        }
+
     } catch (error) {
         console.error(error)
         return {success: false, message: 'An error has occured when trying to remove users from lobby'}
