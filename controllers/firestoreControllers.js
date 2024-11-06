@@ -27,9 +27,25 @@ const deleteLobby = async (req, res) => {
         
     } catch (error) {
         console.error(error); // Log the error for debugging
-        return res.status(500).json({ message: 'An error occurred while deleting the lobby' });
+        res.status(500).json({ message: 'An error occurred while deleting the lobby' });
+    }
+}
+
+const addUserToLobby = async(req, res) => {
+    try{
+        const { lobbyID, UID } = req.body
+        await firestoreServices.addUserToLobby(lobbyID, UID)
+        
+        res.status(200).json({
+            "message": `user ${UID} added succesffuly to lobby ${lobbyID}`
+        }
+        )
+        
+    } catch(error) {
+        console.error(`Failed to add user ${UID} from lobby ${lobbyID}: ${error.message}`)
+        res.status(500).json( {"error" : `Failed to add user ${UID} from lobby ${lobbyID}`})
     }
 }
 
 
-module.exports = {createLobby, deleteLobby}
+module.exports = {createLobby, deleteLobby, addUserToLobby}
