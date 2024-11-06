@@ -1,5 +1,5 @@
 
-const { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby } = require('../services/firestoreService')
+const { deleteLobby, addUserToLobby, removeUserFromLobby } = require('../services/firestoreService')
 const firestoreController = require('../controllers/firestoreControllers')
 
 const express = require('express')

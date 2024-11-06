@@ -4,8 +4,8 @@ const firestoreServices = require('../services/firestoreService')
 
 const createLobby = async (req, res) => {
     try {
-        let lobbyCode = await firestoreServices.generateCode()
-        await createLobby(lobbyCode)
+        let lobbyCode = await generateCode()
+        await firestoreServices.createLobby(lobbyCode)
 
         const response = {
             "code" : lobbyCode 
@@ -17,7 +17,10 @@ const createLobby = async (req, res) => {
         const errorResponse = {
             "error" : "Failed to create Lobby"
         }
+
         res.status(400).json(errorResponse)
         console.error(`Error during api call: /firestore/createLobby ${error}`)
     }
 }
+
+module.exports = {createLobby}
