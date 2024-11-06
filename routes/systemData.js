@@ -1,5 +1,5 @@
 
-const { getData } = require('../utils/misc/monitoringInterface.js')
+const { getData } = require('../utils/osUtils.js')
 const express = require('express');
 const { fstat } = require('node:fs');
 const path = require('node:path');
