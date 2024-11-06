@@ -25,15 +25,14 @@ const getFirst10FirebaseAuthUsers = async () => {
 async function authCheckIfUserExists(UID) {
     console.log(`Attemping to find user ${UID}...`)
 
-    await getAuth()
-        .getUser(UID)
-        .then(() =>{
-            console.log(`User: ${UID} succesfully found! `)
-            return true 
-        })
-        .catch((error) => {
-            console.error(`Error while trying to find the user: ${UID} ${error}`)
-        })
+    try {
+        await getAuth().getUser(UID)
+        console.log(`User: ${UID} succesfully found! `)
+        return true 
+    } catch(error) {
+        console.error(`Error while trying to find the user: ${UID} ${error}`)
+        return false
+    }
 }
 
 module.exports = {
@@ -41,10 +40,3 @@ module.exports = {
     authCheckIfUserExists
 };
 
-//Developer section
-/*-----------------------------------------------------*/ 
-async function test() {
-    await authCheckIfUserExists("R17FpKNLx3QGzT6T3ZliNLRfFe2")
-}
-
-test()
