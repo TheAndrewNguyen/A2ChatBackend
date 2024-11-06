@@ -172,12 +172,12 @@ async function deleteAllLobbies() {
   }
 }
 
-async function test(lobbyID) {
-    await createLobby(lobbyID)
-    await addUserToLobby(lobbyID, "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
-    await addUserToLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
-    await removeUserFromLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
-}
+// async function test(lobbyID) {
+//     await createLobby(lobbyID)
+//     await addUserToLobby(lobbyID, "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
+//     await addUserToLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
+//     await removeUserFromLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
+// }
 
-test("1234");
+// test("1234");
 //deleteAllLobbies()
