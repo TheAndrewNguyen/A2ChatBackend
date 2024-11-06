@@ -1,7 +1,4 @@
-
-
 //OS utils for frontend monitoring 
-
 const os = require('node:os')
 
 //function that calculates os uptime f

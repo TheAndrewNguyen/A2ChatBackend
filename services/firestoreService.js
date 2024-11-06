@@ -109,15 +109,10 @@ async function removeUserFromLobby(lobbyId, UID) {
         let docRef = db.collection('lobbies').doc(lobbyId)
         let snapshot = await docRef.get()
 
-        //if the document / lobby does not exist 
-        if(!snapshot.exists) {
-            return {success: false, message: `Lobby: ${lobbyId} does not exists`}
-        }
+        
     } catch(e) {
         console.log(`An error occured while trying to retreive the document/lobby error: ${e}`)
     }
-
-
 
     //get the data from the document 
     let lobby_data = snapshot.data() 

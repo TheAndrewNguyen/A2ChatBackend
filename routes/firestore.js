@@ -1,6 +1,6 @@
 
 const { generateCode } = require('../utils/misc/generateCode')
-const { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby } = require('../utils/Firebase/firestoreUtils')
+const { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby } = require('../services/firestoreService')
 
 const express = require('express')
 const router = express.Router();
