@@ -5,7 +5,7 @@ const firestoreServices = require('../services/firestoreService')
 const createLobby = async (req, res) => {
     try {
         const generated_code = await generateCode()
-        const lobbyCode =  firestoreServices.createLobby(generated_code)
+        const lobbyCode = await firestoreServices.createLobby(generated_code)
 
         res.status(200).json({"code" : lobbyCode})
                 
