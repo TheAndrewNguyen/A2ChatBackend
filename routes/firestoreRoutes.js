@@ -7,30 +7,7 @@ const router = express.Router();
 
 //creates firestore documenet returns the join code to the user
 router.post('/createLobby', firestoreController.createLobby) 
-
-router.delete('/deleteLobby', async (req, res) => {
-    const { lobbyId } = req.body; // Getting lobbyId from route parameters
-
-    // Input validation (simple example)
-    if (!lobbyId || typeof lobbyId !== 'string') {
-        return res.status(400).json({ message: 'Invalid lobbyId' });
-    }
-
-    try {
-        const result = await deleteLobby(lobbyId);
-
-        if (result.success == true) {
-            return res.status(200).json({ message: result.message });
-        } else {
-            return res.status(404).json({ message: result.message });
-        }
-
-    } catch (error) {
-        console.error(error); // Log the error for debugging
-        return res.status(500).json({ message: 'An error occurred while deleting the lobby' });
-    }
-})
-
+router.delete('/deleteLobby', firestoreController.deleteLobby) 
 
 router.put('/addUserToLobby', async(req, res) => {
     const { lobbyID, UID } = req.body
