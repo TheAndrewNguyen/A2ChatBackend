@@ -31,7 +31,7 @@ async function authCheckIfUserExists(UID) {
         return true 
     } catch(error) {
         console.error(`Error while trying to find the user: ${UID} ${error}`)
-        return false
+        throw new Error(`Error while trying to find user ${UID}: ${error.message}`)
     }
 }
 

@@ -2,11 +2,12 @@ const { admin, db } = require("../configs/firebaseConfig");
 const { documentSchema } = require("../models/lobbyModel");
 const { authCheckIfUserExists } = require("./authServices");
 
-//check if the lobby exists in the db
+//check if the lobby exists in the db throws an error if not returns true if a lobby exists
 async function checkDbconnectionandIfLobbyExists(lobbyId) {
   try {
     if (!db) {
       console.error("Firestore instance is not initialized");
+      throw new Error("FireStore instance is not initalized");
     }
 
     //get the doc ref
@@ -15,46 +16,47 @@ async function checkDbconnectionandIfLobbyExists(lobbyId) {
 
     if (!doc.exists) {
       console.error(`function checkIfLobbyExists: Lobby ${lobbyId} not found`);
-      return false;
+      throw new Error(`Lobby with ID ${lobbyId} not found`);
     }
 
     console.log(`function checkIfLobbyExists: Lobby ${lobbyId} found!`);
 
     return true;
+
   } catch (error) {
     console.error(
       `function checkIfLobbyExists: An error occured while trying to find the lobby: ${error}`
     );
-    return false;
+    throw error;
   }
 }
 
 //creating a document in firestore for lobby
 //called inside inside of routes
+//returns lobbyID
 async function createLobby(lobbyId) {
   try {
-    let lobbies = db.collection("lobbies");
-    await lobbies.doc(lobbyId).set(documentSchema(lobbyId));
+    let lobbiesCollection = db.collection("lobbies");
+    const lobbyData = documentSchema(lobbyId)
+
+    await lobbiesCollection.doc(lobbyId).set(lobbyData);
     console.log(`lobby created succesfully with join code ${lobbyId}`);
+
+    return lobbyId//send up the lobby code 
+
   } catch (error) {
     console.error("Error while creating lobby:", error);
+    throw error;
   }
 }
 
 //deleting a lobby in firestore
 //called in a route
 async function deleteLobby(lobbyId) {
-  console.log(`Attemping to deleteLobby... ${lobbyId}`);
-
-  if (!(await checkDbconnectionandIfLobbyExists(lobbyId))) {
-    console.error("Could not find Lobby");
-    return {
-      success: false,
-      message: `Lobby: ${lobbyId} does not exist or an error occured while trying to find it`,
-    };
-  }
-
+  console.log(`Attemping to deleteLobby...${lobbyId}`);
   try {
+    await checkDbconnectionandIfLobbyExists(lobbyId)
+
     let lobbies = db.collection("lobbies");
     let document = lobbies.doc(lobbyId);
 
@@ -62,13 +64,11 @@ async function deleteLobby(lobbyId) {
     await document.delete();
 
     console.log(`deletion of lobby ${lobbyId} succesful!`);
-    return { success: true, message: `Lobby: ${lobbyId} deleted succesfully` };
+    return true 
+
   } catch (error) {
     console.error(`error: ${error}`);
-    return {
-      success: false,
-      message: `An error occured while deleting ${lobbyId}:, ${error.message}`,
-    };
+    throw new Error(`Failed to delete lobby ${lobbyId}: ${error.message}`) 
   }
 }
 
@@ -77,49 +77,32 @@ async function addUserToLobby(lobbyId, UID) {
     let docRef = db.collection("lobbies").doc(lobbyId);
 
     //check if document exists
-    if (!(await checkDbconnectionandIfLobbyExists(lobbyId))) {
-      console.error("Could not find Lobby");
-      return {
-        success: false,
-        message: `Lobby: ${lobbyId} does not exist or an error occured while trying to find it`,
-      };
-    }
+    await checkDbconnectionandIfLobbyExists(lobbyId)
 
     //add user to the users field of lobby
     await docRef.update({
       users: admin.firestore.FieldValue.arrayUnion(UID),
     });
 
-    return { success: true, message: `user ${UID} added succesffuly to lobby` };
+    console.log(`User: ${UID} has been succesfully added to lobby: ${lobbyId}`)
+    return true 
+
   } catch (error) {
     console.error(error);
-    return {
-      success: false,
-      message: "An error has occured when trying to update the lobby",
-    };
+    throw new Error(`Failed to add user ${UID} to Lobby ${lobbyId}: ${error.message}`)
   }
 }
 
-// TODO: implmeent single user removal and if they are the last user then also delete the lobby
+//removal of users from lobby 
+//if last user delete hte lobby
 async function removeUserFromLobby(lobbyId, UID) {
   try {
+    
     //check if user and document exists
-    const [lobbyExists, userExists] = await Promise.all([
+    await Promise.all([
       checkDbconnectionandIfLobbyExists(lobbyId),
       authCheckIfUserExists(UID),
     ]);
-
-    //if lobby does not exist
-    if (!lobbyExists) {
-      console.error("Could not find Lobby");
-      return { success: false, message: `Lobby ${lobbyId} could not be found` };
-    }
-
-    //if auth user does not exist
-    if (!userExists) {
-      console.error(`Could not find user ${UID}`);
-      return { success: false, message: `User ${UID} could not be found` };
-    }
 
     let docRef = db.collection("lobbies").doc(lobbyId);
     let snapshot = await docRef.get();
@@ -133,7 +116,8 @@ async function removeUserFromLobby(lobbyId, UID) {
         success: true,
         message: `Lobby ${lobbyId} has been removed by the last user`,
       };
-    } else { //if the function is called with at least 2 users remove the user user that called it 
+    } else {
+      //if the function is called with at least 2 users remove the user user that called it
       await docRef.update({
         users: admin.firestore.FieldValue.arrayRemove(UID),
       });
@@ -144,13 +128,19 @@ async function removeUserFromLobby(lobbyId, UID) {
     }
   } catch (error) {
     console.error(
-      "An error has occured while trying to run the function removeUserFromLobby " +
-        error
+      "An error has occured while trying to run the function removeUserFromLobby " + error
     );
+    throw new Error(`An error has occured while trying to remove user ${UID} from lobby: ${lobbyId}: ${error.message}`
+    )
   }
 }
 
-module.exports = { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby }
+module.exports = {
+  createLobby,
+  deleteLobby,
+  addUserToLobby,
+  removeUserFromLobby,
+};
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------/
 //developer functions
@@ -174,12 +164,14 @@ async function deleteAllLobbies() {
   }
 }
 
-// async function test(lobbyID) {
-//     await createLobby(lobbyID)
-//     await addUserToLobby(lobbyID, "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
-//     await addUserToLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
-//     await removeUserFromLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
-// }
+async function test(lobbyID) {
+    await createLobby(lobbyID)
+    await addUserToLobby("1234", "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
+    await addUserToLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
+    await removeUserFromLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
+    await removeUserFromLobby(lobbyID, "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
+    await addUserToLobby("1234", "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
+}
 
-// test("1234");
+test("1234");
 //deleteAllLobbies()

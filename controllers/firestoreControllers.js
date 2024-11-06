@@ -23,4 +23,14 @@ const createLobby = async (req, res) => {
     }
 }
 
-module.exports = {createLobby}
+const deleteLobby = async (req, res) => {
+    try {
+        const {lobbyId} = req.body() 
+        
+    }
+    catch(error) {
+        console.error(`Erro rdudr`)
+    }
+}
+
+module.exports = {createLobby, deleteLobby}
