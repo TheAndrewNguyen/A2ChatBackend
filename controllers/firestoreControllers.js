@@ -2,7 +2,7 @@
 const {generateCode} = require('../services/codeGenerationService')
 const firestoreServices = require('../services/firestoreService') 
 
-//TODO: add more specific error codes 
+//TODO: add more specific error codes for all functions
 const createLobby = async (req, res) => {
     try {
         const generated_code = await generateCode()
