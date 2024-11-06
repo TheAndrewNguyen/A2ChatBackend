@@ -1,6 +1,6 @@
 
 const admin = require('../configs/firebaseConfig.js')
-const { checkAuthConnection } = require('../utils/Firebase/authUtils');
+const { checkAuthConnection } = require('../services/authServices.js');
 
 const express = require('express')
 const router = express.Router();

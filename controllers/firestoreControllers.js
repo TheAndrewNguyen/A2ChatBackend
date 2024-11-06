@@ -1,10 +1,10 @@
 
 const {generateCode} = require('../services/codeGenerationService')
-const { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby } = require('../services/firestoreService')
+const firestoreServices = require('../services/firestoreService') 
 
 const createLobby = async (req, res) => {
     try {
-        let lobbyCode = await generateCode()
+        let lobbyCode = await firestoreServices.generateCode()
         await createLobby(lobbyCode)
 
         const response = {
