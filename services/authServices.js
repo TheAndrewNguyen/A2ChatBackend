@@ -1,6 +1,6 @@
 
-const { getAuth } = require('firebase-admin/auth');
 const admin = require('../configs/firebaseConfig')
+const { getAuth } = require('firebase-admin/auth');
 
 //returns the first 10 users if firebase is working 
 //if no users show up then firebase is not working 
@@ -35,8 +35,26 @@ async function authCheckIfUserExists(UID) {
     }
 }
 
+//delete the user from firebase auth 
+async function authDeleteUser(UID) {
+    if(!UID) {
+        throw new Error("Must provide UID")
+    }
+
+    console.log('Attempting to delete user:', UID + '...')
+    try {
+        await getAuth().deleteUser(UID); 
+            
+        console.log(`Successfully deleted user: ${UID}`);
+        return {success : true, message : `Successfully deleted user: ${UID}`}
+    } catch(error) {
+        return {success: false, message: `${error.message}`}
+    }
+}
+
 module.exports = {
     getFirst10FirebaseAuthUsers,
-    authCheckIfUserExists
+    authCheckIfUserExists, 
+    authDeleteUser
 };
 
