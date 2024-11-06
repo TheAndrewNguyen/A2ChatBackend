@@ -1,21 +1,12 @@
 
-const { generateCode } = require('../utils/misc/generateCode')
 const { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby } = require('../services/firestoreService')
+const firestoreController = require('../controllers/firestoreControllers')
 
 const express = require('express')
 const router = express.Router();
 
 //creates firestore documenet returns the join code to the user
-router.post('/createLobby', (req, res) =>{
-    let code = generateCode() 
-    createLobby(code) //creates a lobby with the join code
-        .then(() => {
-            res.status(201).send( {code} )
-        }) 
-        .catch(error => {
-            res.status(500).send({ error: `Failed to create lobby error: ${error}`})
-        })
-})
+router.post('/createLobby', firestoreController.createLobby) 
 
 router.delete('/deleteLobby', async (req, res) => {
     const { lobbyId } = req.body; // Getting lobbyId from route parameters

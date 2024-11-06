@@ -11,10 +11,9 @@ app.set('views', './views')
 app.use(express.json()); // Middleware to parse JSON bodies
 
 //importing route files 
-const authRouter = require('./routes/auth.js')
-const test = require('./routes/test.js')
-const firestore = require('./routes/firestore.js')
-const systemData = require('./routes/systemData.js')
+const authRouter = require('./routes/authRoutes.js')
+const firestore = require('./routes/firestoreRoutes.js')
+const systemData = require('./routes/systemDataRoutes.js')
 
 //use the routers 
 app.use('/auth', authRouter)

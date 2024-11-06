@@ -150,6 +150,8 @@ async function removeUserFromLobby(lobbyId, UID) {
   }
 }
 
+module.exports = { createLobby, deleteLobby, addUserToLobby, removeUserFromLobby }
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------/
 //developer functions
 async function getAllLobbies() {
