@@ -32,11 +32,6 @@ async function checkDbconnectionandIfLobbyExists(lobbyId) {
 //creating a document in firestore for lobby 
 //called inside inside of routes 
 async function createLobby(lobbyId) {
-
-    if(!checkDbconnectionandIfLobbyExists(lobbyId)) {
-        console.error("Could not find Lobby")
-    }
-
     try {
         let lobbies =  db.collection('lobbies')
         await lobbies.doc(lobbyId).set(documentSchema(lobbyId))
@@ -50,9 +45,9 @@ async function createLobby(lobbyId) {
 //deleting a lobby in firestore
 //called in a route 
 async function deleteLobby(lobbyId) {
-    console.log(`Attemping to deleteLobby: ${lobbyId}`)
+    console.log(`Attemping to deleteLobby... ${lobbyId}`)
         
-    if(!checkDbconnectionandIfLobbyExists(lobbyId)) {
+    if(!(await checkDbconnectionandIfLobbyExists(lobbyId))) {
         console.error("Could not find Lobby")
         return { success: false, message: `Lobby: ${lobbyId} does not exist or an error occured while trying to find it`}
     }
@@ -78,10 +73,11 @@ async function addUserToLobby(lobbyId, UID) {
         let docRef = db.collection('lobbies').doc(lobbyId)
         
         //check if document exists 
-        if(!checkDbconnectionandIfLobbyExists(lobbyId)) {
+        if(!(await checkDbconnectionandIfLobbyExists(lobbyId))) {
             console.error("Could not find Lobby")
             return { success: false, message: `Lobby: ${lobbyId} does not exist or an error occured while trying to find it`}
         }
+
 
         //add user to the users field of lobby 
         await docRef.update({
@@ -100,6 +96,12 @@ async function addUserToLobby(lobbyId, UID) {
 async function removeUserFromLobby(lobbyId, UID) {
 
     //check if the user exists
+    if(!(await checkDbconnectionandIfLobbyExists(lobbyId))) {
+        console.error("Could not find Lobby")
+        return { success: false, message: `Lobby: ${lobbyId} does not exist or an error occured while trying to find it`}
+    }
+
+    //TODO: implement a check for if the user exists 
 
 
     //get the document / lobby 
@@ -115,7 +117,6 @@ async function removeUserFromLobby(lobbyId, UID) {
         console.log(`An error occured while trying to retreive the document/lobby error: ${e}`)
     }
 
-    //TODO: implement a check for if the user exists 
 
 
     //get the data from the document 
@@ -140,13 +141,37 @@ async function removeUserFromLobby(lobbyId, UID) {
     }
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------/ 
+//developer functions 
+async function getAllLobbies() {
+    
+    const setOfdocumentIds = new Set() 
+
+    const lobbiesRef = db.collection('lobbies')
+    const snapshot = await lobbiesRef.get() 
+    snapshot.forEach(doc => {
+        setOfdocumentIds.add(doc.id)
+    })
+
+    return setOfdocumentIds
+}
+
+//delete all lobbies inside of firestore database 
+async function deleteAllLobbies() {
+    const setOfdocumentIds = await getAllLobbies()
+    for(const item of setOfdocumentIds) {
+        await deleteLobby(item) 
+    }
+    
+}
 
 
 async function test() {
     await createLobby("12455")
     console.log(await checkDbconnectionandIfLobbyExists("12455"))
     await addUserToLobby("12455", "TEST USER")
-    await deleteLobby("12455")
+    await deleteLobby("12455") 
 }
 
 test() 
+//deleteAllLobbies() 
