@@ -17,8 +17,9 @@ const createLobby = async (req, res) => {
 }
 
 const deleteLobby = async (req, res) => {
+    const { lobbyId } = req.body; // Getting lobbyId from route parameters
+
     try {
-        const { lobbyId } = req.body; // Getting lobbyId from route parameters
         await firestoreServices.deleteLobby(lobbyId);
         
         res.status(200).json({
@@ -32,8 +33,9 @@ const deleteLobby = async (req, res) => {
 }
 
 const addUserToLobby = async(req, res) => {
+    const { lobbyID, UID } = req.body
+
     try{
-        const { lobbyID, UID } = req.body
         await firestoreServices.addUserToLobby(lobbyID, UID)
         
         res.status(200).json({
@@ -47,5 +49,19 @@ const addUserToLobby = async(req, res) => {
     }
 }
 
+const removeUsersFromLobby = async(req, res) => {
+    const {lobbyID, UID} = req.body
 
-module.exports = {createLobby, deleteLobby, addUserToLobby}
+    try {
+        const result = await firestoreServices.removeUserFromLobby(lobbyID, UID)
+        if(result.success) {
+            res.status(200).json({"message" : result.message })
+        }
+
+    } catch(error) {
+        console.error(`Error while trying to remove user ${UID} from lobby {lobbyID}`)
+        res.status(500).json({"error" : `Failed to remove user ${UID} from lobby ${lobbyID}`})
+    }
+}
+
+module.exports = {createLobby, deleteLobby, addUserToLobby, removeUsersFromLobby}

@@ -112,20 +112,25 @@ async function removeUserFromLobby(lobbyId, UID) {
     //if the function is called by the last user then delete the document
     if (user_array.length == 1) {
       await deleteLobby(lobbyId);
+
+      console.log(`Lobby ${lobbyId} has been ended by last user`)
       return {
         success: true,
-        message: `Lobby ${lobbyId} has been removed by the last user`,
+        message: `Lobby ${lobbyId} has been ended by last user`,
       };
+
     } else {
       //if the function is called with at least 2 users remove the user user that called it
       await docRef.update({
         users: admin.firestore.FieldValue.arrayRemove(UID),
       });
+      console.log(`User ${UID} has been removed from Lobby: ${lobbyId}`)
       return {
         success: true,
         message: `User ${UID} has been removed from Lobby: ${lobbyId}`,
       };
     }
+
   } catch (error) {
     console.error(
       "An error has occured while trying to run the function removeUserFromLobby " + error
