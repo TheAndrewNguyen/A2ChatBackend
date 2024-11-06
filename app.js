@@ -18,7 +18,6 @@ const systemData = require('./routes/systemData.js')
 
 //use the routers 
 app.use('/auth', authRouter)
-app.use('/test', test)
 app.use('/firestore', firestore)
 app.use('/systemData', systemData)
 
