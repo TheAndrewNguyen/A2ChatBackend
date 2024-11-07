@@ -37,12 +37,13 @@ async function authCheckIfUserExists(UID) {
 
 //delete the user from firebase auth 
 async function authDeleteUser(UID) {
-    if(!UID) {
-        throw new Error("Must provide UID")
-    }
-
     console.log('Attempting to delete user:', UID + '...')
     try {
+        if(!UID) {
+            throw new Error("Must provide UID")
+        }
+
+        await authCheckIfUserExists(UID)
         await getAuth().deleteUser(UID); 
             
         console.log(`Successfully deleted user: ${UID}`);
