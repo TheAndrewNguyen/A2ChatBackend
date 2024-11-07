@@ -33,34 +33,34 @@ const deleteLobby = async (req, res) => {
 }
 
 const addUserToLobby = async(req, res) => {
-    const { lobbyID, UID } = req.body
+    const { lobbyId, uid } = req.body
 
     try{
-        await firestoreServices.addUserToLobby(lobbyID, UID)
+        await firestoreServices.addUserToLobby(lobbyId, uid)
         
         res.status(200).json({
-            "message": `user ${UID} added succesffuly to lobby ${lobbyID}`
+            "message": `user ${uid} added succesffuly to lobby ${lobbyId}`
         }
         )
         
     } catch(error) {
-        console.error(`Failed to add user ${UID} from lobby ${lobbyID}: ${error.message}`)
-        res.status(500).json( {"error" : `Failed to add user ${UID} from lobby ${lobbyID}`})
+        console.error(`Failed to add user ${uid} from lobby ${lobbyId}: ${error.message}`)
+        res.status(500).json( {"error" : `Failed to add user ${uid} from lobby ${lobbyId}`})
     }
 }
 
 const removeUsersFromLobby = async(req, res) => {
-    const {lobbyID, UID} = req.body
+    const {lobbyId, uid} = req.body
 
     try {
-        const result = await firestoreServices.removeUserFromLobby(lobbyID, UID)
+        const result = await firestoreServices.removeUserFromLobby(lobbyId, uid)
         if(result.success) {
             res.status(200).json({"message" : result.message })
         }
 
     } catch(error) {
-        console.error(`Error while trying to remove user ${UID} from lobby {lobbyID}`)
-        res.status(500).json({"error" : `Failed to remove user ${UID} from lobby ${lobbyID}`})
+        console.error(`Error while trying to remove user ${uid} from lobby ${lobbyId}`)
+        res.status(500).json({"error" : `Failed to remove user ${uid} from lobby ${lobbyId}`})
     }
 }
 
