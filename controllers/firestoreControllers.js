@@ -50,7 +50,7 @@ const addUserToLobby = async(req, res) => {
 }
 
 const removeUsersFromLobby = async(req, res) => {
-    const {lobbyId, uid} = req.body
+    const {lobbyId, uid} = req.params 
 
     try {
         const result = await firestoreServices.removeUserFromLobby(lobbyId, uid)
