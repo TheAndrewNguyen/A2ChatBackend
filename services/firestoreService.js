@@ -96,7 +96,7 @@ async function checkIfUserInLobby(lobbyId, uid) {
   }
 }
 
-async function addUserToLobby(lobbyId, UID) {
+async function addUserToLobby(lobbyId, uid) {
   try {
     let docRef = db.collection("lobbies").doc(lobbyId);
 
@@ -105,27 +105,28 @@ async function addUserToLobby(lobbyId, UID) {
 
     //add user to the users field of lobby
     await docRef.update({
-      users: admin.firestore.FieldValue.arrayUnion(UID),
+      users: admin.firestore.FieldValue.arrayUnion(uid),
     });
 
-    console.log(`User: ${UID} has been succesfully added to lobby: ${lobbyId}`)
+    console.log(`User: ${uid} has been succesfully added to lobby: ${lobbyId}`)
     return true 
 
   } catch (error) {
     console.error(error);
-    throw new Error(`Failed to add user ${UID} to Lobby ${lobbyId}: ${error.message}`)
+    throw new Error(`Failed to add user ${uid} to Lobby ${lobbyId}: ${error.message}`)
   }
 }
 
 
 //removal of users from lobby 
 //if last user delete hte lobby
-async function removeUserFromLobby(lobbyId, UID) {
+async function removeUserFromLobby(lobbyId, uid) {
   try {
     
     //check if user and document exists
     await Promise.all([
       checkDbconnectionandIfLobbyExists(lobbyId),
+      checkIfUserInLobby(lobbyId, uid)
     ]);
 
     let docRef = db.collection("lobbies").doc(lobbyId);
@@ -146,12 +147,12 @@ async function removeUserFromLobby(lobbyId, UID) {
     } else {
       //if the function is called with at least 2 users remove the user user that called it
       await docRef.update({
-        users: admin.firestore.FieldValue.arrayRemove(UID),
+        users: admin.firestore.FieldValue.arrayRemove(uid),
       });
-      console.log(`User ${UID} has been removed from Lobby: ${lobbyId}`)
+      console.log(`User ${uid} has been removed from Lobby: ${lobbyId}`)
       return {
         success: true,
-        message: `User ${UID} has been removed from Lobby: ${lobbyId}`,
+        message: `User ${uid} has been removed from Lobby: ${lobbyId}`,
       };
     }
 
@@ -159,7 +160,7 @@ async function removeUserFromLobby(lobbyId, UID) {
     console.error(
       "An error has occured while trying to run the function removeUserFromLobby " + error
     );
-    throw new Error(`An error has occured while trying to remove user ${UID} from lobby: ${lobbyId}: ${error.message}`
+    throw new Error(`An error has occured while trying to remove user ${uid} from lobby: ${lobbyId}: ${error.message}`
     )
   }
 }
@@ -192,3 +193,4 @@ async function deleteAllLobbies() {
     await deleteLobby(item);
   }
 }
+
