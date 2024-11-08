@@ -44,7 +44,7 @@ Api call to delete a user
 **Parameters:**
 | Parameter       | Type            | Required        | Description  |
 |-----------------|-----------------|-----------------|--------------|
-|  uid            | string          | Yes             | uid of user to be deleted |
+|  UID            | string          | Yes             | UID of user to be deleted |
 
 **Example request:**
 ```
@@ -156,8 +156,8 @@ Adds user to the corresponding lobby document `User` field
 
 | Parameter       | Type            | Required        | Description  |
 |-----------------|-----------------|-----------------|--------------|
-| LobbyId         | string          | yes             | LobbyId /document title|
-| uid             | string          | yes             | User Id      |
+| LobbyID         | string          | yes             | LobbyId /document title|
+| UID             | string          | yes             | User ID |
 
 **Example request:**
 ```
@@ -167,9 +167,10 @@ Host: https://a2chat.mooo.com
 Json Body:
 ```json
 {
-    "lobbyId": "041946", 
-    "uid": "TestUser" 
+    "lobbyID": "041946", 
+    "UID": "TestUser" 
 }
+
 ```
 **Example response (If succesful)**: 
 ```json
@@ -184,38 +185,7 @@ Json Body:
     "message": "Lobby: 43 does not exists"
 }
 ```
-### 4. Remove user from Lobby 
-Removes user from lobby.  If last user then delete the lobby 
 
-**Endpoint:** `/firestore/removeUsersFromLobby`
-
-**Method:** `DELETE`
-
-**Parameters:**
-| Parameter       | Type            | Required        | Description  |
-|-----------------|-----------------|-----------------|--------------|
-| LobbyId         | string          | yes             | LobbyId /document title|
-| uid             | string          | yes             | User Id      |
-
-**Example request:**
-```json
-{
-    "lobbyId" : "221469",
-    "uid" : "YbFYEkAa1aZpjXGMsxrgG6G93z32"
-}
-```
-**Example response (If succesful)**: 
-```json
-{
-    "message": "Lobby 221469 has been ended by last user"
-}
-```
-**Example response (If failed)**: 
-```json
-{
-    "error": "Failed to remove user YbFYEkAa1aZpjXGMsxrgG6G93z32 from lobby 221469"
-}
-```
 
 
 

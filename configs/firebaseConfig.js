@@ -3,14 +3,16 @@ const { initializeApp, applicationDefault, cert } = require('firebase-admin/app'
 const { getFirestore } = require("firebase-admin/firestore");
 const serviceAccount = require('../google-services.json');
 
-let db
+let db, realtimeDb;
 
 try { 
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
+        databaseURL: 'https://a2chat-25ae2-default-rtdb.firebaseio.com/'
     });
 
     db = getFirestore() 
+    realtimeDb = admin.database(); // Initialize Realtime Database
     console.log("FirebaseConfig.js: FireStore initalized succesfully")
 
 } catch(error) {
@@ -18,4 +20,4 @@ try {
 }
 
 
-module.exports = {admin, db} 
+module.exports = {admin, db, realtimeDb} 
