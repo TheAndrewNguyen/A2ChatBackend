@@ -3,7 +3,7 @@
 const authServices = require('../services/authServices')
 
 const deleteUser = async(req, res) => {
-    const {uid} = req.body
+    const {uid} = req.params
 
     try {
         const result = await authServices.authDeleteUser(uid)
