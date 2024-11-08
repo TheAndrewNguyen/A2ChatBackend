@@ -195,6 +195,70 @@ Host: https://a2chat.mooo.com
 }
 ```
 
+### 4. Send Message
+Sends a message
+
+**Endpoint:** `/messages/:lobbyid`
+
+**Method:** `POST`
+
+**Parameters:**
+
+| Parameter       | Type            | Required        | Description  |
+|-----------------|-----------------|-----------------|--------------|
+| LobbyId         | string          | yes             | LobbyId |
+
+**Example request:**
+```
+POST /messages/:lobbyid
+Host: https://a2chat.mooo.com
+```
+Json Body:
+```json
+{
+    "lobbyId": "259156"
+}
+```
+
+**Example response (If succesful)**: 
+```json
+{
+    "success": true,
+    "message": "Message sent!"
+}
+```
+**Example response (If failed)**: 
+```
+TBD fixing bug  
+```
+
+
+### 5. Send Message
+Sends a message
+
+**Endpoint:** `/messages/:lobbyid`
+
+**Method:** `GET`
+
+
+**Example request:**
+```
+GET /messages/:lobbyid
+Host: https://a2chat.mooo.com
+```
+
+**Example response (If succesful)**: 
+```json
+{
+    "success": true,
+    "message": "Messages retrieved!",
+    "data": []
+}
+```
+**Example response (If failed)**: 
+```
+TBD fixing bug  
+```
 
 
 
