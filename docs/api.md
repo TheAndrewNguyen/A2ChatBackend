@@ -6,36 +6,9 @@ https://a2chat.mooo.com
 ```
 ---
 ## Firebase Authentication Endpoints 
-### 1. Get current users 
-Api call that gets current users in  auth database 
 
-**Endpoint:** `/auth/checkConnection`  
-
-**Method:** `GET`  
-
-**Example request:**
-```
-GET /auth/checkConnnection
-Host: https://a2chat.mooo.com
-```
-**Example response**: 
-```json
-{
-    "message": "Firebase Authentication is connected!",
-    "userCount": 10,
-    "users": [
-        {
-            "uid": "9CHgYuqYX9SpfTxEIRCvXzNp9m12"
-        },
-        {
-            "uid": "9y2HD7dGCefNo323OduwdXVxuOs1"
-        }
-    ]
-}
-```
-
-### 2. Delete User 
-Api call to delete a user 
+### 1. Delete User 
+Api call to delete a user from auth directory 
 
 **Endpoint:** `/auth/deleteUser`
 
@@ -44,18 +17,12 @@ Api call to delete a user
 **Parameters:**
 | Parameter       | Type            | Required        | Description  |
 |-----------------|-----------------|-----------------|--------------|
-|  UID            | string          | Yes             | UID of user to be deleted |
+|  uid            | string          | Yes             | uid of user to be deleted |
 
 **Example request:**
 ```
-Delete /auth/deleteUser
+Delete /auth/deleteUser/{uid}
 Host: https://a2chat.mooo.com
-```
-Json Body: 
-```json
-{
-    "uid": "9y2HD7dGCefNo323OduwdXVxuOs1"
-}
 ```
 
 **Example response (If successful)**: 
@@ -64,17 +31,17 @@ Json Body:
     "message": "Sucessfully deleted user: 9y2HD7dGCefNo323OduwdXVxuOs1"
 }
 ```
+
 **Example response (If failed)**: 
 ```json
 {
-    "message": "Error deleting user",
-    "error": "There is no user record corresponding to the provided identifier."
+    "error": "Failed to remove user NgoCecjETQcNHubnPV73fKX8cv53 from lobby 265947"
 }
 ```
 ---
 ## FireStore Endpoints
 ### 1. Create Lobby  
-Generates Lobby code and creates firestore document with the lobby code as the document Id.
+Creates a lobby in firestore database. Returns lobby code.
 
 **Endpoint:** `/firestore/createLobby`
 
@@ -113,7 +80,7 @@ Host: https://a2chat.mooo.com
 ### 2. Delete Lobby 
 Deletes a lobby / deletes the firestore document 
 
-**Endpoint:** `/firestore/deleteLobby`
+**Endpoint:** `/firestore/deleteLobby/{lobbyId}`
 
 **Method:** `DELETE`
 
@@ -121,7 +88,7 @@ Deletes a lobby / deletes the firestore document
 
 | Parameter       | Type            | Required        | Description  |
 |-----------------|-----------------|-----------------|--------------|
-| LobbyId         | string          | yes             | LobbyId / Document ID |
+| lobbyId         | string          | yes             | lobbyId / Document ID |
 
 **Example request:**
 ```
@@ -156,8 +123,8 @@ Adds user to the corresponding lobby document `User` field
 
 | Parameter       | Type            | Required        | Description  |
 |-----------------|-----------------|-----------------|--------------|
-| LobbyID         | string          | yes             | LobbyId /document title|
-| UID             | string          | yes             | User ID |
+| lobbyId         | string          | yes             | lobbyId /document title|
+| uid             | string          | yes             | User ID |
 
 **Example request:**
 ```
@@ -167,8 +134,8 @@ Host: https://a2chat.mooo.com
 Json Body:
 ```json
 {
-    "lobbyID": "041946", 
-    "UID": "TestUser" 
+    "lobbyId": "041946", 
+    "uid": "TestUser" 
 }
 
 ```
@@ -180,9 +147,51 @@ Json Body:
  
 ```
 **Example response (If failed)**: 
-```
+```json
 {
     "message": "Lobby: 43 does not exists"
+}
+```
+---
+### 4. Remove User from Lobby 
+Removes user fromy Lobby.  If last user end the lobby
+
+**Endpoint:** `/firestore/removeUsersFromLobby/{lobbyId}/uid`
+
+**Method:** `DELETE`
+
+**Parameters:**
+
+
+| Parameter       | Type            | Required        | Description  |
+|-----------------|-----------------|-----------------|--------------|
+| lobbyId         | string          | yes             | lobbyId /document title|
+| uid             | string          | yes             | User ID |
+
+**Example request:**
+```
+DELETE /firestore/removeUsersFromLobby/265947/NgoCecjETQcNHubnPV73fKX8cv53
+Host: https://a2chat.mooo.com
+```
+**Example response (If succesful and not last user)**: 
+```json
+{
+    "message": "User NgoCecjETQcNHubnPV73fKX8cv53 has been removed from Lobby: 265947"
+}
+```
+**Example response (If succesful and last user)**: 
+```json
+{
+    "message": "Lobby 265947 has been ended by last user"
+}
+```
+
+
+
+**Example response (If failed)**: 
+```json
+{
+    "error": "Failed to remove user NgoCecjETQcNHubnPV73fKX8cv53 from lobby 265947"
 }
 ```
 
