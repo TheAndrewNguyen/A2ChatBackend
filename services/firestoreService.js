@@ -72,6 +72,30 @@ async function deleteLobby(lobbyId) {
   }
 }
 
+//check if user is in lobby
+//make sure to run dbcheckConnectionandLobbyExists before this
+async function checkIfUserInLobby(lobbyId, uid) {
+  console.log(`Attemping to find user ${uid} in lobby ${lobbyId}`)
+  try { 
+    let docRef = db.collection("lobbies").doc(lobbyId)
+    const snapshot = await docRef.get() 
+    let data = snapshot.data() 
+    let users = data.users
+    
+    for(let i = 0; i < users.length; i++) {
+      if(users[i] == uid) {
+        return true 
+      }
+    }
+
+    return false 
+    
+  } catch(error) {
+    console.error(`Failed to find user ${uid} in lobby ${lobbyId}: ${error}`)
+    throw new Error(`Failed to find user ${uid} in lobby ${lobbyId}: ${error}`)
+  }
+}
+
 async function addUserToLobby(lobbyId, UID) {
   try {
     let docRef = db.collection("lobbies").doc(lobbyId);
@@ -93,6 +117,7 @@ async function addUserToLobby(lobbyId, UID) {
   }
 }
 
+
 //removal of users from lobby 
 //if last user delete hte lobby
 async function removeUserFromLobby(lobbyId, UID) {
@@ -101,7 +126,6 @@ async function removeUserFromLobby(lobbyId, UID) {
     //check if user and document exists
     await Promise.all([
       checkDbconnectionandIfLobbyExists(lobbyId),
-      authCheckIfUserExists(UID),
     ]);
 
     let docRef = db.collection("lobbies").doc(lobbyId);
@@ -168,15 +192,3 @@ async function deleteAllLobbies() {
     await deleteLobby(item);
   }
 }
-
-// async function test(lobbyID) {
-//     await createLobby(lobbyID)
-//     await addUserToLobby("1234", "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
-//     await addUserToLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
-//     await removeUserFromLobby(lobbyID, "tOdMupM5wlUi86xdkldwDwOqLws2")
-//     await removeUserFromLobby(lobbyID, "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
-//     await addUserToLobby("1234", "R17FpKNLx3QGzT6T3ZliNLRfTFe2")
-// }
-
-// test("1234");
-//deleteAllLobbies()
