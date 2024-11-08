@@ -30,7 +30,7 @@ router.put("/addUserToLobby", firestoreController.addUserToLobby);
  * @access PUBLIC
  */
 router.delete(
-  "/removeUsersFromLobby",
+  "/removeUsersFromLobby/:lobbyId/:uid",
   firestoreController.removeUsersFromLobby
 );
 
