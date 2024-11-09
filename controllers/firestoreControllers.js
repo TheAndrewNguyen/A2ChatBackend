@@ -56,7 +56,7 @@ const removeUsersFromLobby = async(req, res) => {
         const result = await firestoreServices.removeUserFromLobby(lobbyId, uid)
         if(result.success) {
             res.status(200).json({"message" : result.message })
-        }
+        } 
 
     } catch(error) {
         console.error(`Error while trying to remove user ${uid} from lobby ${lobbyId}`)

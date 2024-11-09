@@ -15,12 +15,14 @@ const authRouter = require('./routes/authRoutes.js')
 const firestore = require('./routes/firestoreRoutes.js')
 const systemData = require('./routes/systemDataRoutes.js')
 const messages = require('./routes/messageRoutes.js')
+const userBatch = require('./routes/userBatchRoutes.js')
 
 //use the routers 
 app.use('/auth', authRouter)
 app.use('/firestore', firestore)
 app.use('/systemData', systemData)
 app.use('/messages', messages)
+app.use('/batch', userBatch)
 
 //root page 
 app.get('/', async(req, res) => {

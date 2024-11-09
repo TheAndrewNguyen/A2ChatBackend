@@ -161,7 +161,7 @@ async function removeUserFromLobby(lobbyId, uid) {
     console.error(
       "An error has occured while trying to run the function removeUserFromLobby " + error
     );
-    throw new Error(`An error has occured while trying to remove user ${uid} from lobby: ${lobbyId}: ${error.message}`
+    throw new Error(`An error has occured while trying to remove user ${uid} from lobby: ${lobbyId}: ${error.message})`
     )
   }
 }
