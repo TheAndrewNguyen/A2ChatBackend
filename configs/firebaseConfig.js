@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const { getFirestore } = require("firebase-admin/firestore");
-const serviceAccount = require('../google-services.json');
+const serviceAccount = require('./google-services.json');
 
 let db, realtimeDb;
 
