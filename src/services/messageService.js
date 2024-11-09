@@ -1,5 +1,5 @@
 const e = require("express");
-const { realtimeDb } = require("../configs/firebaseConfig");
+const { realtimeDb } = require("../../configs/firebaseConfig");
 
 //sends a message to lobby 
 //if lobby is not created inside of realtime yet it will create a lobby

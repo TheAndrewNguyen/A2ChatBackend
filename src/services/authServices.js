@@ -1,5 +1,5 @@
 
-const admin = require('../configs/firebaseConfig')
+const admin = require('../../configs/firebaseConfig')
 const { getAuth } = require('firebase-admin/auth');
 
 //returns the first 10 users if firebase is working 
