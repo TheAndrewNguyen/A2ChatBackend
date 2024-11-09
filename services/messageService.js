@@ -1,3 +1,4 @@
+const e = require("express");
 const { realtimeDb } = require("../configs/firebaseConfig");
 
 const sendMessage = async (messageContent, userId, timestamp, lobbyCode) => {
@@ -36,5 +37,18 @@ const getMessages = async (lobbyCode) => {
   }
 };
 
+
+//deletes the lobby from firebase realtime 
+const deleteLobby = async(lobbyCode) => {
+  const ref = realtimeDb.ref('messages/') //reference to database lobby 
+  const lobby = ref.child(lobbyCode)
+  lobby.set(null, (error) => {
+    if(error) { //note: will only log error if theres an error accessing the database 
+      console.error(`Error while trying to delete messages in lobby: ${lobbyCode}`)
+    } else {
+      console.log(`Data deleted succesfully in lobby: ${lobbyCode}`)
+    }
+  }) 
+} 
 
 module.exports = { sendMessage, getMessages };
