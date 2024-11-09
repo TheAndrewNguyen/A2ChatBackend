@@ -1,4 +1,4 @@
-const { admin, db } = require("../configs/firebaseConfig");
+const { admin, db } = require("../../configs/firebaseConfig");
 const { documentSchema } = require("../models/lobbyModel");
 const messageService = require("./messageService")
 

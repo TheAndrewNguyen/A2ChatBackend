@@ -1,4 +1,4 @@
-const { getData } = require('./utils/osUtils.js')
+const { getData } = require('./src/utils/osUtils.js')
 
 //server set up
 const express = require('express');
@@ -7,15 +7,15 @@ const port = 3000;
 
 //sets and use 
 app.set('view engine', 'ejs')
-app.set('views', './views')
+app.set('views', './src/views')
 app.use(express.json()); // Middleware to parse JSON bodies
 
 //importing route files 
-const authRouter = require('./routes/authRoutes.js')
-const firestore = require('./routes/firestoreRoutes.js')
-const systemData = require('./routes/systemDataRoutes.js')
-const messages = require('./routes/messageRoutes.js')
-const userBatch = require('./routes/userBatchRoutes.js')
+const authRouter = require('./src/routes/authRoutes.js')
+const firestore = require('./src/routes/firestoreRoutes.js')
+const systemData = require('./src/routes/systemDataRoutes.js')
+const messages = require('./src/routes/messageRoutes.js')
+const userBatch = require('./src/routes/userBatchRoutes.js')
 
 //use the routers 
 app.use('/auth', authRouter)
