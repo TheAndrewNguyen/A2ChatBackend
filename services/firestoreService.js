@@ -1,6 +1,6 @@
 const { admin, db } = require("../configs/firebaseConfig");
 const { documentSchema } = require("../models/lobbyModel");
-const { authCheckIfUserExists } = require("./authServices");
+const messageService = require("./messageService")
 
 //check if the lobby exists in the db throws an error if not returns true if a lobby exists
 async function checkDbconnectionandIfLobbyExists(lobbyId) {
@@ -136,7 +136,8 @@ async function removeUserFromLobby(lobbyId, uid) {
 
     //if the function is called by the last user then delete the document
     if (user_array.length == 1) {
-      await deleteLobby(lobbyId);
+      await deleteLobby(lobbyId); //delete the lobby from firebase firestore
+      await messageService.deleteLobby(lobbyId) //delete messages from firebase realtime
 
       console.log(`Lobby ${lobbyId} has been ended by last user`)
       return {
@@ -186,11 +187,10 @@ async function getAllLobbies() {
   return setOfdocumentIds;
 }
 
-//delete all lobbies inside of firestore database
+//delete all lobbies inside of firestore database except for the permanent doc 
 async function deleteAllLobbies() {
   const setOfdocumentIds = await getAllLobbies();
   for (const item of setOfdocumentIds) {
-    await deleteLobby(item);
+    if(item != "PERMANENTDOC") await deleteLobby(item);
   }
 }
-
