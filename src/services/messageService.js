@@ -1,17 +1,21 @@
-const e = require("express");
 const { realtimeDb } = require("../../configs/firebaseConfig");
 
 //sends a message to lobby 
 //if lobby is not created inside of realtime yet it will create a lobby
-const sendMessage = async (messageContent, userId, timestamp, lobbyCode) => {
+const sendMessage = async (messageContent, userId, lobbyCode) => {
   try {
     const ref = realtimeDb.ref('messages/' + lobbyCode);
     const newMessageRef = ref.push();
+
+    //time stamping 
+    const timeStamp = Date.now() 
+
     await newMessageRef.set({
-      messageContent,
       userId,
-      timestamp
+      messageContent,
+      timeStamp
     });
+
   } catch (error) {
     console.error("Error sending message:", error);
   }
