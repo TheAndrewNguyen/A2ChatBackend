@@ -2,10 +2,11 @@ const { sendMessage, getMessages } = require('../services/messageService');
 
 const handleSendMessage = async (req, res) => {
   try {
-    const { messageContent, userId, timestamp } = req.body;
-    const { lobbyCode } = req.params;
     
-    await sendMessage(messageContent, userId, timestamp, lobbyCode);
+    const { lobbyCode } = req.params;
+    const { userId, messageContent } = req.body;
+    
+    await sendMessage(messageContent, userId, lobbyCode);
     res.status(200).json({ success: true, message: 'Message sent!' });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

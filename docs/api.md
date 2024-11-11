@@ -1,84 +1,104 @@
-# A2Chat API documentation 
+# A2Chat API documentation
+
 The A2Chat API offers a range of endpoints for authentication, data storage, and developer tools, designed to support both end users and development teams.
-### Base url: 
+
+### Base url:
+
 ```
 https://a2chat.mooo.com
 ```
----
-## Firebase Authentication Endpoints 
 
-### 1. Delete User 
-Api call to delete a user from auth directory 
+---
+
+## Firebase Authentication Endpoints
+
+### 1. Delete User
+
+Api call to delete a user from auth directory
 
 **Endpoint:** `/auth/deleteUser`
 
 **Method:** `DELETE`
 
 **Parameters:**
-| Parameter       | Type            | Required        | Description  |
+| Parameter | Type | Required | Description |
 |-----------------|-----------------|-----------------|--------------|
-|  uid            | string          | Yes             | uid of user to be deleted |
+| uid | string | Yes | uid of user to be deleted |
 
 **Example request:**
+
 ```
 Delete /auth/deleteUser/{uid}
 Host: https://a2chat.mooo.com
 ```
 
-**Example response (If successful)**: 
+**Example response (If successful)**:
+
 ```json
 {
-    "message": "Sucessfully deleted user: 9y2HD7dGCefNo323OduwdXVxuOs1"
+  "message": "Sucessfully deleted user: 9y2HD7dGCefNo323OduwdXVxuOs1"
 }
 ```
 
-**Example response (If failed)**: 
+**Example response (If failed)**:
+
 ```json
 {
-    "error": "Failed to remove user NgoCecjETQcNHubnPV73fKX8cv53 from lobby 265947"
+  "error": "Failed to remove user NgoCecjETQcNHubnPV73fKX8cv53 from lobby 265947"
 }
 ```
+
 ---
+
 ## FireStore Endpoints
-### 1. Create Lobby  
+
+### 1. Create Lobby
+
 Creates a lobby in firestore database. Returns lobby code.
 
 **Endpoint:** `/firestore/createLobby`
 
 **Method:** `POST`
 
-**Parameters:** None 
+**Parameters:** None
 
 **Example request:**
+
 ```
-POST /firestore/createLobby 
-Host: https://a2chat.mooo.com 
+POST /firestore/createLobby
+Host: https://a2chat.mooo.com
 ```
 
-**Example response (if successful)**: 
+**Example response (if successful)**:
+
 ```json
 {
-    "code": "259156"
-} 
+  "code": "259156"
+}
 ```
+
 **Example firestore document created:**
+
 ```
 {
-    title: "259156", 
-    isActive : true (boolean),    
+    title: "259156",
+    isActive : true (boolean),
     lobbyCode: "259156" (string),
-    users: [] 
+    users: []
 }
 ```
 
 **Example reponse (if failed)**
+
 ```json
 {
   "error": "Failed to create lobby error: <error message>"
 }
 ```
-### 2. Delete Lobby 
-Deletes a lobby / deletes the firestore document 
+
+### 2. Delete Lobby
+
+Deletes a lobby / deletes the firestore document
 
 **Endpoint:** `/firestore/deleteLobby/{lobbyId}`
 
@@ -86,34 +106,42 @@ Deletes a lobby / deletes the firestore document
 
 **Parameters:**
 
-| Parameter       | Type            | Required        | Description  |
-|-----------------|-----------------|-----------------|--------------|
-| lobbyId         | string          | yes             | lobbyId / Document ID |
+| Parameter | Type   | Required | Description           |
+| --------- | ------ | -------- | --------------------- |
+| lobbyId   | string | yes      | lobbyId / Document ID |
 
 **Example request:**
+
 ```
-DELETE /firestore/deleteLobby 
+DELETE /firestore/deleteLobby
 Host: https://a2chat.mooo.com
 ```
+
 Json Body:
+
 ```json
 {
-    "lobbyId": "259156"
+  "lobbyId": "259156"
 }
 ```
 
-**Example response (If succesful)**: 
+**Example response (If succesful)**:
+
 ```json
 {
-    "message": "Lobby 259156 deleted successfully"
+  "message": "Lobby 259156 deleted successfully"
 }
 ```
-**Example response (If failed)**: 
+
+**Example response (If failed)**:
+
 ```
-TBD fixing bug  
+TBD fixing bug
 ```
-### 3.  Add User to lobby
-Adds user to the corresponding lobby document `User` field 
+
+### 3. Add User to lobby
+
+Adds user to the corresponding lobby document `User` field
 
 **Endpoint:** `/firestore/addUserToLobby`
 
@@ -121,40 +149,48 @@ Adds user to the corresponding lobby document `User` field
 
 **Parameters:**
 
-| Parameter       | Type            | Required        | Description  |
-|-----------------|-----------------|-----------------|--------------|
-| lobbyId         | string          | yes             | lobbyId /document title|
-| uid             | string          | yes             | User ID |
+| Parameter | Type   | Required | Description             |
+| --------- | ------ | -------- | ----------------------- |
+| lobbyId   | string | yes      | lobbyId /document title |
+| uid       | string | yes      | User ID                 |
 
 **Example request:**
-```
-PUT /firestore/addUserToLobby 
-Host: https://a2chat.mooo.com
-```
-Json Body:
-```json
-{
-    "lobbyId": "041946", 
-    "uid": "TestUser" 
-}
 
 ```
-**Example response (If succesful)**: 
+PUT /firestore/addUserToLobby
+Host: https://a2chat.mooo.com
+```
+
+Json Body:
+
 ```json
 {
-    "message": "user TestUser added succesffuly to lobby"
+  "lobbyId": "041946",
+  "uid": "TestUser"
 }
- 
 ```
-**Example response (If failed)**: 
+
+**Example response (If succesful)**:
+
 ```json
 {
-    "message": "Lobby: 43 does not exists"
+  "message": "user TestUser added succesffuly to lobby"
 }
 ```
+
+**Example response (If failed)**:
+
+```json
+{
+  "message": "Lobby: 43 does not exists"
+}
+```
+
 ---
-### 4. Remove User from Lobby 
-Removes user fromy Lobby.  If last user end the lobby
+
+### 4. Remove User from Lobby
+
+Removes user fromy Lobby. If last user end the lobby
 
 **Endpoint:** `/firestore/removeUsersFromLobby/{lobbyId}/uid`
 
@@ -162,135 +198,113 @@ Removes user fromy Lobby.  If last user end the lobby
 
 **Parameters:**
 
-
-| Parameter       | Type            | Required        | Description  |
-|-----------------|-----------------|-----------------|--------------|
-| lobbyId         | string          | yes             | lobbyId /document title|
-| uid             | string          | yes             | User ID |
+| Parameter | Type   | Required | Description             |
+| --------- | ------ | -------- | ----------------------- |
+| lobbyId   | string | yes      | lobbyId /document title |
+| uid       | string | yes      | User ID                 |
 
 **Example request:**
+
 ```
 DELETE /firestore/removeUsersFromLobby/265947/NgoCecjETQcNHubnPV73fKX8cv53
 Host: https://a2chat.mooo.com
 ```
-**Example response (If succesful and not last user)**: 
+
+**Example response (If succesful and not last user)**:
+
 ```json
 {
-    "message": "User NgoCecjETQcNHubnPV73fKX8cv53 has been removed from Lobby: 265947"
-}
-```
-**Example response (If succesful and last user)**: 
-```json
-{
-    "message": "Lobby 265947 has been ended by last user"
+  "message": "User NgoCecjETQcNHubnPV73fKX8cv53 has been removed from Lobby: 265947"
 }
 ```
 
+**Example response (If succesful and last user)**:
 
-
-**Example response (If failed)**: 
 ```json
 {
-    "error": "Failed to remove user NgoCecjETQcNHubnPV73fKX8cv53 from lobby 265947"
+  "message": "Lobby 265947 has been ended by last user"
 }
 ```
 
-### 4. Send Message
-Sends a message
+**Example response (If failed)**:
 
-**Endpoint:** `/messages/:lobbyid`
+```json
+{
+  "error": "Failed to remove user NgoCecjETQcNHubnPV73fKX8cv53 from lobby 265947"
+}
+```
 
+---
+
+## Messaging Endpoints
+### 1. Send Message
+
+Sends a message to firebase realtime
+
+**Endpoint:** `/messages/:lobbyId`
 **Method:** `POST`
 
 **Parameters:**
 
-| Parameter       | Type            | Required        | Description  |
-|-----------------|-----------------|-----------------|--------------|
-| LobbyId         | string          | yes             | LobbyId |
+| Parameter      | Type   | Required | Description               |
+| -------------- | ------ | -------- | ------------------------- |
+| LobbyId        | string | yes      | LobbyId                   |
+| messageContent | string | yes      | message user sends        |
+| userId         | string | yes      | auth uid                  |
+| timestamp      | string | yes      | when the message was sent |
 
 **Example request:**
+
 ```
 POST /messages/:lobbyid
 Host: https://a2chat.mooo.com
 ```
+
 Json Body:
+
 ```json
 {
-    "lobbyId": "259156"
+  "messageContent": "Hello, World!",
+  "userId": "ladkjlkdsjf232kljdslfkajsdlkasjdfl",
+  "timestamp": 1692307800001
 }
 ```
 
-**Example response (If succesful)**: 
+**Example response (If succesful)**:
+
 ```json
 {
-    "success": true,
-    "message": "Message sent!"
+  "success": true,
+  "message": "Message sent!"
 }
 ```
-**Example response (If failed)**: 
-```
-TBD fixing bug  
-```
 
-
-### 5. Send Message
-Sends a message
+### 2. Get messages 
+Get messages from database 
 
 **Endpoint:** `/messages/:lobbyid`
 
 **Method:** `GET`
 
-
 **Example request:**
+
 ```
 GET /messages/:lobbyid
 Host: https://a2chat.mooo.com
 ```
 
-**Example response (If succesful)**: 
+**Example response (If succesful)**:
+
 ```json
 {
-    "success": true,
-    "message": "Messages retrieved!",
-    "data": []
+  "success": true,
+  "message": "Messages retrieved!",
+  "data": []
 }
 ```
-**Example response (If failed)**: 
+
+**Example response (If failed)**:
+
 ```
-TBD fixing bug  
+TBD fixing bug
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
