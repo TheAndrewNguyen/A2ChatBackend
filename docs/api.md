@@ -248,13 +248,11 @@ Sends a message to firebase realtime
 
 | Parameter      | Type   | Required | Description               |
 | -------------- | ------ | -------- | ------------------------- |
-| LobbyId        | string | yes      | LobbyId                   |
+| lobbyId        | string | yes      | LobbyId                   |
 | messageContent | string | yes      | message user sends        |
-| userId         | string | yes      | auth uid                  |
-| timestamp      | string | yes      | when the message was sent |
+| userId         | string | yes      | auth user uid             |
 
 **Example request:**
-
 ```
 POST /messages/:lobbyid
 Host: https://a2chat.mooo.com
@@ -264,12 +262,10 @@ Json Body:
 
 ```json
 {
-  "messageContent": "Hello, World!",
   "userId": "ladkjlkdsjf232kljdslfkajsdlkasjdfl",
-  "timestamp": 1692307800001
+  "messageContent": "Hello, World!"
 }
 ```
-
 **Example response (If succesful)**:
 
 ```json
