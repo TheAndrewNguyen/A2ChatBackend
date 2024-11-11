@@ -292,9 +292,16 @@ Host: https://a2chat.mooo.com
 **Example response (If succesful)**:
 
 ```json
+Note: Order of the data feild is in this exact sequence
 {
-  "success": true,
-  "message": "Messages retrieved!",
-  "data": []
+    "success": true,
+    "message": "Messages retrieved!",
+    "data": [
+        {
+            "messageContent": "Hello, World!",
+            "timeStamp": 1731284184954,
+            "userId": "ladkjlkdsjf232kljdslfkajsdlkasjdfl"
+        }
+    ]
 }
 ```
