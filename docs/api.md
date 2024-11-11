@@ -298,9 +298,3 @@ Host: https://a2chat.mooo.com
   "data": []
 }
 ```
-
-**Example response (If failed)**:
-
-```
-TBD fixing bug
-```
