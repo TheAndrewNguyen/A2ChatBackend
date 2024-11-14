@@ -27,8 +27,8 @@ You can find all documentation [here](docs/)
 
 ## Server and Logs 
 * [Server Stats and website](https://A2chat.mooo.com)
-* [Console logs](https://a2chat.mooo.com/log)
-* [Error logs](https://a2chat.mooo.com/errorlog)
+* [Console logs](https://a2chat.mooo.com/systemdata/log)
+* [Error logs](https://a2chat.mooo.com/systemdata/errorlog)
 
 ## License
 
