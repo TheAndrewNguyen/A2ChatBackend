@@ -26,7 +26,7 @@ node app.js
 You can find all documentation [here](docs/)
 
 ## Server and Logs 
-* [Server Stats and website](https://A2chat.mooo.com)
+* [Server front page](https://A2chat.mooo.com)
 * [Console logs](https://a2chat.mooo.com/systemdata/log)
 * [Error logs](https://a2chat.mooo.com/systemdata/errorlog)
 
