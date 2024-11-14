@@ -1,4 +1,5 @@
 ﻿# A2Chat Backend
+![License](https://img.shields.io/badge/license-MIT-blue)
 
 The backend API service for the A2Chat mobile application on iOS and Android.
 
@@ -28,3 +29,6 @@ You can find all documentation [here](docs/)
 * [Console logs](https://a2chat.mooo.com/log)
 * [Error logs](https://a2chat.mooo.com/errorlog)
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
