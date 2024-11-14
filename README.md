@@ -4,7 +4,7 @@
 
 The backend API service for the A2Chat mobile application on iOS and Android.
 
-## Contributing
+## Setting up dev enviorment
 
 Follow these steps to get the development environment up and running:
 
