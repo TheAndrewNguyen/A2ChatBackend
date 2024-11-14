@@ -1,20 +1,35 @@
-﻿# A2ChatBackend
-## Download 
-1. fork the repo
-2. run the command `npm i` //download dependencies
-3. put a google-json file in root
-4. make sure to have a .gitignore file for node modules and your google-json file
+﻿# A2Chat Backend
+![License](https://img.shields.io/badge/license-MIT-blue) [![CI/CD Pipeline](https://github.com/A2Chat/A2ChatBackend/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/A2Chat/A2ChatBackend/actions/workflows/ci-cd.yml) ![Node Version](https://img.shields.io/badge/node-%3E%3D%2020-green) ![AWS Deployment](https://img.shields.io/badge/deployed%20on-AWS-orange) 
 
-## to run
-`node app.js`   
 
-## Docs: [Docs](docs/)
+The backend API service for the A2Chat mobile application on iOS and Android.
 
-## link to server and logs 
-(Server Stats)[https://a2chat.mooo.com/](https://a2chat.mooo.com/)
+## Contributing
 
-[logs](https://a2chat.mooo.com/systemdata/log)
+Follow these steps to get the development environment up and running:
 
-[Error logs](https://a2chat.mooo.com/systemdata/errorlog)
-### misc 
-ssh -i "a2keyPair.pem" ubuntu@ec2-18-117-87-87.us-east-2.compute.amazonaws.com
+1. **Fork the repository** to your GitHub account.
+2. Run the following command in the root directory of the project to install dependencies:
+    ```bash
+    npm install
+    ```
+3. Add your Google JSON credentials file to the root of the project.
+
+## Running the Application
+
+To start the application, run the following command in the project root directory:
+```bash
+node app.js
+```
+
+## Documentation 
+You can find all documentation [here](docs/)
+
+## Server and Logs 
+* [Server Stats and website](https://A2chat.mooo.com)
+* [Console logs](https://a2chat.mooo.com/systemdata/log)
+* [Error logs](https://a2chat.mooo.com/systemdata/errorlog)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
