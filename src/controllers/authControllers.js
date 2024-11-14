@@ -18,6 +18,13 @@ const deleteUser = async(req, res) => {
     }
 }
 
+// Protect your routes with the verifyFirebaseToken middleware
+const verifyToken = async(req, res) => {
+    // At this point, the user is verified, and you can use req.user
+    console.log('User UID:', req.user.uid);
+    res.send({ message: 'Token verified successfully', uid: req.user.uid });
+};
+
 module.exports = {
-    deleteUser
+    deleteUser, verifyToken
 }
