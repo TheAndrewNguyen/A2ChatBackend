@@ -1,5 +1,6 @@
 ﻿# A2Chat Backend
-![License](https://img.shields.io/badge/license-MIT-blue)
+![License](https://img.shields.io/badge/license-MIT-blue) [![CI/CD Pipeline](https://github.com/A2Chat/A2ChatBackend/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/A2Chat/A2ChatBackend/actions/workflows/ci-cd.yml) ![Node Version](https://img.shields.io/badge/node-%3E%3D%2020-green) ![AWS Deployment](https://img.shields.io/badge/deployed%20on-AWS-orange) 
+
 
 The backend API service for the A2Chat mobile application on iOS and Android.
 
