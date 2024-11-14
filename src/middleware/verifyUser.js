@@ -3,8 +3,6 @@ const { getAuth } = require('firebase-admin/auth');
 
 const verifyUser = async (req, res, next) => {
     // Extract token from the Authorization header
-    console.log('Request Headers:', req.headers); // Log all headers
-
     const idToken = req.headers.authorization?.split('Bearer ')[1];
     console.log('Extracted token:', idToken);  // Log the token to check if it's being passed correctly
 
