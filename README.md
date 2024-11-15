@@ -3,6 +3,7 @@
 
 
 The backend API service for the A2Chat mobile application on iOS and Android.
+Created by Andrew and Alex.
 
 ## Setting up dev enviorment
 
