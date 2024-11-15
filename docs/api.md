@@ -305,3 +305,44 @@ Note: Order of the data feild is in this exact sequence
     ]
 }
 ```
+
+---
+
+## Firebase Middleware
+
+### 1. Verify User
+
+Api call to validate jwt token of user
+
+**Endpoint:** `/auth/verifyUser`
+
+**Method:** `POST`
+
+**Headers:**
+| Parameter | Type | Required | Description |
+|-----------------|-----------------|-----------------|--------------|
+| Authorization | string | Yes | "Bearer {user token}" |
+
+**Example request:**
+
+```
+POST auth/verifyToken
+Host: https://a2chat.mooo.com
+```
+
+**Example response (If successful)**:
+
+```json
+{
+    "message": "Token verified successfully",
+    "uid": "kHtbiDgGpNcjWtdV4pF1EypSqAf1"
+}
+```
+
+**Example response (If failed)**:
+
+```json
+Invalid or expired token
+```
+
+---
