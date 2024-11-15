@@ -11,8 +11,10 @@ const corsOptions = {
     origin: (origin, callback) => {
         const allowedOrigins = ['https://a2chat.mooo.com']; // List of allowed origins
         if (!origin || allowedOrigins.includes(origin)) {
+            console.log("allowed by cors");
             callback(null, true); // Allow request
         } else {
+            console.log("not allowed by cors");
             callback(new Error('Not allowed by CORS')); // Block request
         }
     },
