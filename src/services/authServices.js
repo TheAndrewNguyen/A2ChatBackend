@@ -53,9 +53,28 @@ async function authDeleteUser(UID) {
     }
 }
 
+
 module.exports = {
     getFirst10FirebaseAuthUsers,
     authCheckIfUserExists, 
     authDeleteUser
 };
 
+async function deleteAllUsers() {
+    let nextPageToken; // Token for paging through users
+    do {
+        const listUsersResult = await getAuth().listUsers(1000, nextPageToken);
+
+        // Loop through each user and delete them
+        for (const user of listUsersResult.users) {
+            const result = await authDeleteUser(user.uid);
+            if (!result.success) {
+                console.error(`Failed to delete user ${user.uid}: ${result.message}`);
+            }
+        }
+
+        nextPageToken = listUsersResult.pageToken; // Update token for the next page
+    } while (nextPageToken); // Continue if there are more users
+
+    console.log("All users deleted.");
+}
