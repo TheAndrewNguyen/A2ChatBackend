@@ -12,6 +12,7 @@ const msglimiter = rateLimit({
     handler: function (req, res) {
     // Custom message on exceeding the limit
     res.status(this.statusCode).send(this.message);
+    console.log(this.message);
   }
   });
 
@@ -28,6 +29,7 @@ const msglimiter = rateLimit({
     handler: function (req, res) {
     // Custom message on exceeding the limit
     res.status(this.statusCode).send(this.message);
+    console.log(this.message);
   }
   });
 
